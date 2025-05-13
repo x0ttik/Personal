@@ -3,8 +3,10 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 // FUNCIONES
+
 
 // Funcion para que el usuario introduzca un archivo existente
 
@@ -67,7 +69,6 @@ int main(){
         
     }
 
-    // MODIFICAR MODA
 
     // MODA
 
@@ -101,7 +102,6 @@ int main(){
     printf("La moda es: %.2f \n", arreglo[indiceModa]);
 
 
-    // contador 
     // ciclo for, recorrer todos los numeros 
 
     contador = 0;
@@ -192,18 +192,6 @@ int main(){
         porcentaje = (float)recorte / 100;
 
         mediaRecortadaOriginal = n * porcentaje; 
-
-        // TEMPORAL // Ver que media recortada se imprima bien 
-        printf(" \n Porcentaje: %.2f \n", porcentaje);
-
-        // TEMPORAL // Ver que media recortada se imprima bien 
-        printf(" \n Media recortada: %.2f \n", mediaRecortadaOriginal);
-
-        // Temporal
-        mediaRecortada = mediaRecortadaOriginal / 2;
-        
-        // TEMPORAL // Ver que media recortada se imprima bien  
-        printf(" \n Media recortada: %.2f \n", mediaRecortada);
 
         int nTemporal = 0;
         nTemporal = n - mediaRecortadaOriginal; // Creamos variable de nuevo (n = tamanio del arreglo - valores a recortar)
@@ -298,7 +286,103 @@ int main(){
         printf("Valor invalido \n");
     }
     
+    // Variables 
+    float o, s;
+    contador = 0;
 
+    // Variables para medir el tiempo
+
+    clock_t start, end; // Variable para guardar inicio y fin
+    double cpu_time_used; // Variable tiempo usado
+
+    // VARIANZA Y DESVIACION ESTANDAR 
+
+    // VARIANZA POBLACIONAL
+
+    suma = 0;
+
+    start = clock(); // Inicio de la medicion del tiempo
+
+    for(int i = 0; i < n; i++){ // Hacemos un ciclo para sumar el valor de xi - media y el resultado al cuadrado
+        o = arreglo[i] - media;
+        o = pow(o, 2);
+        suma = o + suma;
+
+        contador = contador + 2; // Un contador que nos indique cuantos calculos se realizaron
+    }
+
+    o = 0;
+
+    o = suma / n;
+    contador = contador + 1;
+
+    printf(" \n -------------------- \n ");
+    printf("La varianza poblacional es: %.2f \n", o);
+    printf(" -------------------- \n ");
+
+    // DESVIACION POBLACIONAL
+
+    o = sqrt(o);
+    contador = contador + 1;
+
+    end = clock(); // Fin de la medicion del tiempo 
+
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC * 1000; // Se utiliza "Clocks per sec" y se multiplica por 1000 para saberlo en milisegundos 
+
+    printf(" \n -------------------- \n ");
+    printf("La desviacion poblacional es: %.2f \n", o);
+    printf(" -------------------- \n ");
+    printf("Para obtener la varianza y desviacion poblacional \n");
+    printf("\n Se utilizaron un total de %d calculos y con un tiempo utilizado por el procesador de %.2lf milisegundos \n", contador, cpu_time_used);
+
+    
+
+    // REINICIAMOS VALORES DE LAS VARIABLES 
+    suma = 0;
+    contador = 0;
+    start = 0;
+    end = 0; 
+    cpu_time_used = 0; 
+
+    // VARIANZA MUESTRAL
+
+    start = clock(); // Inicio de la medicion del tiempo
+
+    for(int i = 0; i < n; i++){ // Hacemos un ciclo para sumar el valor de xi - media y el resultado al cuadrado
+        s = arreglo[i] - media;
+        s = pow(s, 2);
+        suma = s + suma;
+
+        contador = contador + 2; // Un contador que nos indique cuantos calculos se realizaron
+    }
+
+    s = 0;
+
+    s = suma / (n - 1); // N - 1 ya que asi es la formula muestral
+    contador = contador + 1;
+
+
+    printf(" \n -------------------- \n ");
+    printf("La varianza muestral es: %.2f \n", s);
+    printf(" -------------------- \n ");
+
+    // DESVIACION MUESTRAL
+
+    s = sqrt(s);
+    contador = contador + 1;
+
+    end = clock(); // Fin de la medicion del tiempo 
+
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC * 1000; // Se utiliza "Clocks per sec" y se multiplica por 1000 para saberlo en milisegundos 
+
+    printf(" \n -------------------- \n ");
+    printf("La desviacion muestral es: %.2f \n", s);
+    printf(" -------------------- \n ");
+    printf("Para obtener la varianza y desviacion muestral \n");
+    printf("\n Se utilizaron un total de %d calculos y con un tiempo utilizado por el procesador de %.2lf milisegundos \n", contador, cpu_time_used);
+
+
+    // ERROR E INTERVALO DE CONFIANZA 
 
 
     return 0;

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 #define MAX_NUMEROS 100
 #define PI 3.1416
 
@@ -59,10 +60,191 @@
         {0.9999997, 0.9999997, 0.9999997, 0.9999997, 0.9999997, 0.9999997, 0.9999997, 0.9999997, 0.9999997, 0.9999997}
         };
 
+    // MATRIZ DE TABLA T
+    double tablaT[30][7] = {
+        {3.078,   6.314,   12.706,  31.821,  38.204,  50.923,  63.657},   // df = 1
+        {1.886,   2.920,    4.303,   6.965,   7.650,   8.860,   9.925},   // df = 2
+        {1.638,   2.353,    3.182,   4.541,   4.857,   5.392,   5.841},   // df = 3
+        {1.533,   2.132,    2.776,   3.747,   3.961,   4.315,   4.604},   // df = 4
+        {1.476,   2.015,    2.571,   3.365,   3.534,   3.810,   4.032},   // df = 5
+        {1.440,   1.943,    2.447,   3.143,   3.288,   3.521,   3.707},   // df = 6
+        {1.415,   1.895,    2.365,   2.998,   3.128,   3.335,   3.499},   // df = 7
+        {1.397,   1.860,    2.306,   2.896,   3.016,   3.206,   3.355},   // df = 8
+        {1.383,   1.833,    2.262,   2.821,   2.934,   3.111,   3.250},   // df = 9
+        {1.372,   1.812,    2.228,   2.764,   2.870,   3.038,   3.169},   // df = 10
+        {1.363,   1.796,    2.201,   2.718,   2.820,   2.891,   3.106},   // df = 11
+        {1.356,   1.782,    2.179,   2.681,   2.780,   2.934,   3.055},   // df = 12
+        {1.350,   1.771,    2.160,   2.650,   2.746,   2.896,   3.012},   // df = 13
+        {1.345,   1.761,    2.145,   2.624,   2.718,   2.864,   2.977},   // df = 14
+        {1.341,   1.753,    2.131,   2.602,   2.694,   2.837,   2.947},   // df = 15
+        {1.337,   1.746,    2.120,   2.583,   2.673,   2.813,   2.921},   // df = 16
+        {1.333,   1.740,    2.110,   2.567,   2.655,   2.793,   2.898},   // df = 17
+        {1.330,   1.734,    2.101,   2.552,   2.639,   2.775,   2.878},   // df = 18
+        {1.328,   1.729,    2.093,   2.539,   2.625,   2.759,   2.861},   // df = 19
+        {1.325,   1.725,    2.086,   2.528,   2.613,   2.744,   2.845},   // df = 20
+        {1.323,   1.721,    2.080,   2.518,   2.602,   2.732,   2.831},   // df = 21
+        {1.321,   1.717,    2.074,   2.508,   2.591,   2.720,   2.819},   // df = 22
+        {1.319,   1.714,    2.069,   2.500,   2.582,   2.710,   2.807},   // df = 23
+        {1.318,   1.711,    2.064,   2.492,   2.574,   2.700,   2.797},   // df = 24
+        {1.316,   1.708,    2.060,   2.485,   2.566,   2.692,   2.787},   // df = 25
+        {1.315,   1.706,    2.056,   2.479,   2.559,   2.684,   2.779},   // df = 26
+        {1.314,   1.703,    2.052,   2.473,   2.553,   2.676,   2.771},   // df = 27
+        {1.313,   1.701,    2.048,   2.467,   2.547,   2.669,   2.763},   // df = 28
+        {1.311,   1.699,    2.045,   2.462,   2.541,   2.663,   2.756},   // df = 29
+        {1.282,   1.645,    1.960,   2.326,   2.394,   2.498,   2.576}    // df = infinito
+    };
+
 // PENDIENTES 
 // - DESVIACIONES
 
 // FUNCIONES
+
+// Función para generar tallo y hoja para gráfico de barras
+void generar_tallo_hoja_barras(float *arreglo, int n, const char *filename, int modo_tallo, int modo_hoja) {
+    int conteo[100] = {0}; // hasta 100 tallos distintos (ajustable)
+
+    for (int i = 0; i < n; i++) {
+        int entero = (int)arreglo[i];
+        int tallo, hoja;
+
+        // Tallo
+        if (modo_tallo == 1)      // Decenas
+            tallo = entero / 10;
+        else                      // Unidades
+            tallo = entero % 10;
+
+        // Hoja (no se usa para el gráfico de barras, pero puedes usarlo si quieres mostrar hojas exactas)
+        if (modo_hoja == 1)       // Unidades
+            hoja = entero % 10;
+        else                      // Decimales
+            hoja = (int)(fabs(arreglo[i] * 10)) % 10;
+
+        conteo[tallo]++;
+    }
+
+    // Escribir archivo de datos para gnuplot
+    FILE *fp = fopen(filename, "w");
+    if (!fp) {
+        perror("No se pudo crear el archivo");
+        return;
+    }
+
+    for (int i = 0; i < 100; i++) {
+        if (conteo[i] > 0) {
+            fprintf(fp, "%d %d\n", i, conteo[i]);
+        }
+    }
+
+    fclose(fp);
+}
+
+void graficar_tallo_hoja_gnuplot() {
+    FILE *gnuplot = popen("gnuplot -persist", "w");
+    if (gnuplot) {
+        fprintf(gnuplot, "set title 'Grafico de Tallo y Hoja (Simulado)'\n");
+        fprintf(gnuplot, "set xlabel 'Frecuencia (Cantidad de hojas)'\n");
+        fprintf(gnuplot, "set ylabel 'Tallo'\n");
+        fprintf(gnuplot, "set style data histograms\n");
+        fprintf(gnuplot, "set style fill solid 1.0 border -1\n");
+        fprintf(gnuplot, "set boxwidth 0.9\n");
+        fprintf(gnuplot, "set ytics rotate by 0\n");
+        fprintf(gnuplot, "plot 'tallo_hoja.dat' using 2:xtic(1) title 'Hojas por Tallo' lc rgb 'orange'\n");
+        pclose(gnuplot);
+    }
+}
+
+void generar_puntos(float *arreglo, int n, const char *filename) {
+    FILE *fp = fopen(filename, "w");
+    if (!fp) {
+        perror("Error al abrir puntos.dat");
+        return;
+    }
+
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arreglo[j] < arreglo[i]) {
+                float temp = arreglo[i];
+                arreglo[i] = arreglo[j];
+                arreglo[j] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        fprintf(fp, "%.2f 0\n", arreglo[i]);
+    }
+
+    fclose(fp);
+}
+
+void graficar_puntos_gnuplot() {
+    FILE *gnuplot = popen("gnuplot -persist", "w");
+    if (gnuplot) {
+        fprintf(gnuplot, "set title 'Grafica de puntos'\n");
+        fprintf(gnuplot, "set xlabel 'Valor'\n");
+        fprintf(gnuplot, "set ylabel 'Frecuencia (y=0)'\n");
+        fprintf(gnuplot, "plot 'puntos.dat' using 1:2 with points pt 7 lc rgb 'blue' notitle\n");
+        pclose(gnuplot);
+    }
+}
+
+void histograma(float *arreglo, int n, int clases, const char *filename) {
+    float min = arreglo[0], max = arreglo[0];
+    for (int i = 1; i < n; i++) {
+        if (arreglo[i] < min) min = arreglo[i];
+        if (arreglo[i] > max) max = arreglo[i];
+    }
+
+    float rango = max - min + 1;
+    float ancho = rango / clases;
+
+    int *frecuencias = calloc(clases, sizeof(int));
+    if (!frecuencias) {
+        perror("Error al reservar memoria");
+        return;
+    }
+
+    for (int i = 0; i < n; i++) {
+        int clase = (int)((arreglo[i] - min) / ancho);
+        if (clase >= clases) clase = clases - 1;
+        frecuencias[clase]++;
+    }
+
+    FILE *fp = fopen(filename, "w");
+    if (!fp) {
+        perror("Error al abrir histograma.dat");
+        free(frecuencias);
+        return;
+    }
+
+    for (int i = 0; i < clases; i++) {
+        float inicio = min + i * ancho;
+        fprintf(fp, "%.2f %d\n", inicio, frecuencias[i]);
+    }
+
+    fclose(fp);
+    free(frecuencias);
+}
+
+void graficar_histograma_gnuplot() {
+    FILE *gnuplot = popen("gnuplot -persist", "w");
+    if (gnuplot) {
+        fprintf(gnuplot, "set title 'Histograma'\n");
+        fprintf(gnuplot, "set style data histograms\n");
+        fprintf(gnuplot, "set style fill solid 1.0 border -1\n");
+        fprintf(gnuplot, "set boxwidth 0.9\n");
+        fprintf(gnuplot, "set xlabel 'Intervalos'\n");
+        fprintf(gnuplot, "set ylabel 'Frecuencia'\n");
+        fprintf(gnuplot, "plot 'histograma.dat' using 2:xtic(1) title 'Frecuencia' lc rgb 'green'\n");
+        pclose(gnuplot);
+    }
+}
+
+
+
+
+
+
 
 // Funcion para que el usuario introduzca un archivo existente
 int leerArchivoNumeros(char* filename, float arreglo[], int *cantidad) {
@@ -84,6 +266,7 @@ int leerArchivoNumeros(char* filename, float arreglo[], int *cantidad) {
 
         char *token = strtok(linea, ",");
         while (token != NULL && *cantidad < MAX_NUMEROS) {
+            while (*token == ' ') token++;
             float num = atof(token);  // atof para float
             arreglo[*cantidad] = num;
             (*cantidad)++;
@@ -122,7 +305,7 @@ float funcionValoresManuales(float arreglo[], int n){
     
 
     for (int i = 0; i < n; i++){
-        printf("Ingrese el valor: \n");
+        printf("\n Ingrese el valor: \n");
         scanf("%f" , &arreglo[i]);
 
         suma = suma + arreglo[i];
@@ -142,36 +325,59 @@ float funcionValoresManuales(float arreglo[], int n){
 }
 
 // Funcion MODA
-void funcionMODA(float arreglo[], int n){
-    // Arreglo para guardar cantidad de veces de numero
-    int arregloCantidad[100];
-    //int contador = 0;
-    //int tamanioArreglo = 0;
 
-    for(int i = 0; i < n; i++){
+void funcionMODA(float arreglo[], int n) {
+    int arregloCantidad[100];
+
+    // Contar frecuencia de cada valor
+    for (int i = 0; i < n; i++) {
         int contador = 0;
-        for (int j = 0; j < n; j++){
-            if(arreglo[i] == arreglo[j]){
-            contador++; 
+        for (int j = 0; j < n; j++) {
+            if (arreglo[i] == arreglo[j]) {
+                contador++;
             }
-        } 
-        arregloCantidad[i] = contador; 
+        }
+        arregloCantidad[i] = contador;
     }
 
-    // Buscar el índice del valor más frecuente (moda)
+    // Obtener la frecuencia máxima
     int maxFrecuencia = 0;
-    int indiceModa = 0;
-
     for (int i = 0; i < n; i++) {
         if (arregloCantidad[i] > maxFrecuencia) {
             maxFrecuencia = arregloCantidad[i];
-            indiceModa = i;
         }
     }
 
+    // Verificar si todos tienen la misma frecuencia
+    int mismaFrecuencia = 1;
+    for (int i = 1; i < n; i++) {
+        if (arregloCantidad[i] != arregloCantidad[0]) {
+            mismaFrecuencia = 0;
+            break;
+        }
+    }
 
-    printf(" \n -------------------- \n ");    
-    printf("La moda es: %.2f \n", arreglo[indiceModa]);
+    printf("\n--------------------\n");
+    if (mismaFrecuencia || maxFrecuencia == 1) {
+        printf("No hay moda, todos los valores tienen la misma frecuencia.\n");
+    } else {
+        printf("Moda(s): ");
+        for (int i = 0; i < n; i++) {
+            if (arregloCantidad[i] == maxFrecuencia) {
+                int yaImpresa = 0;
+                for (int j = 0; j < i; j++) {
+                    if (arreglo[j] == arreglo[i]) {
+                        yaImpresa = 1;
+                        break;
+                    }
+                }
+                if (!yaImpresa) {
+                    printf("%.2f ", arreglo[i]);
+                }
+            }
+        }
+        printf("\n");
+    }
 }
 
 // Funcion MEDIA
@@ -327,45 +533,42 @@ void funcionMediaRecortada(float arreglo[], int n, float suma){
 }
 
 // Funcion varianza poblacional 
-float funcionVarianzaPoblacional(float arreglo[], float media, int n, int *contador){
+float funcionVarianzaPoblacional(float arreglo[], float media, int n, int *contador) {
     *contador = 0;
-    float o = 0, suma = 0;
-    media = 0; 
+    float suma = 0;
+    float diferencia = 0;
 
-    for(int i = 0; i < n; i++){ // Hacemos un ciclo para sumar el valor de xi - media y el resultado al cuadrado
-        o = arreglo[i] - media;
-        o = pow(o, 2);
-        suma = o + suma;
-
-        *contador = *contador + 2; // Un contador que nos indique cuantos calculos se realizaron
+    for (int i = 0; i < n; i++) {
+        diferencia = arreglo[i] - media;
+        suma += pow(diferencia, 2);
+        *contador += 2; // resta y potencia
     }
 
-    o = 0;
+    float varianza = suma / n;
+    *contador += 1; // división
 
-    o = suma / n;
-    *contador = *contador + 1;
-
-    return o;
+    return varianza;
 }
+
 
 // Funcion varianza muestral
-float funcionVarianzaMuestral(float arreglo[], float media, int n , int *contador){
+float funcionVarianzaMuestral(float arreglo[], float media, int n, int *contador) {
     *contador = 0;
-    float suma = 0, s = 0; 
+    float suma = 0;
+    float diferencia = 0;
 
-    for(int i = 0; i < n; i++){ // Hacemos un ciclo para sumar el valor de xi - media y el resultado al cuadrado
-        s = arreglo[i] - media;
-        s = pow(s, 2);
-        suma = s + suma;
-        (*contador) += 2; // Un contador que nos indique cuantos calculos se realizaron
+    for (int i = 0; i < n; i++) {
+        diferencia = arreglo[i] - media;
+        suma += pow(diferencia, 2);
+        *contador += 2; // resta y potencia
     }
 
-    s = 0;
+    float varianza = suma / (n - 1); // muestral usa n - 1
+    *contador += 1; // división
 
-    s = suma / (n - 1); // N - 1 ya que asi es la formula muestral
-    (*contador) += 1;
-    return s;
+    return varianza;
 }
+
 
 // FALTAN LAS DESVIACIONES, POR ESO EL VALOR ESTANDAR NO DABA CORRECTAMENTE
 // DESVIACION 
@@ -422,15 +625,11 @@ double funcionIntegralTrapecio(double a, double b, int n){
 double encontrarAlpha(double alpha){
     alpha = alpha / 2;
     alpha = 1 - alpha;
-    
-    printf(" \n -------------------- \n ");
-    printf("\n ALPHA = %.4f\n", alpha);
-    printf(" \n -------------------- \n ");
 
     return alpha;
 }
 
-//
+
 void encontrarZ(double alpha) {
     int filaExacta = -1, colExacta = -1, filaInferior = -1, colInferior = -1, filaSuperior = -1, colSuperior = -1; // Se inicializan en -1 para que no haya confusion si no se encuentra nada
     int encontrado = 0; // Sirve para saber si se encontro algo (0 = no, 1 = si, codigo binario)
@@ -468,7 +667,7 @@ void encontrarZ(double alpha) {
 
     if (encontrado) { // Solo si es exacta sera verdadero 
         z = filaExacta * 0.10 + colExacta * 0.01;
-        printf("Alpha exacto encontrado en tabla: %.4f\n", alpha); 
+        printf("Alpha exacto encontrado en tabla: %.4f \n", alpha); 
         printf("Z correspondiente: %.3f\n", z);
 
     } else if (filaInferior != -1 && filaSuperior != -1) { // Promedio entre los Z de los valores justo inferior y superior
@@ -484,227 +683,584 @@ void encontrarZ(double alpha) {
     }
 }
 
+double encontrarAlphaDesdeZ(double z) {
+    int filaInferior = -1, colInferior = -1;
+    int filaSuperior = -1, colSuperior = -1;
+
+    double zActual;
+
+    // Buscar z exacto o valores cercanos
+    for (int i = 0; i < 38; i++) {
+        for (int j = 0; j < 10; j++) {
+            zActual = i * 0.10 + j * 0.01;
+
+            if (zActual == z) {
+                // Z exacto encontrado
+                return tablaZ[i][j];
+            }
+
+            if (zActual < z) {
+                if (filaInferior == -1 || zActual > (filaInferior * 0.10 + colInferior * 0.01)) {
+                    filaInferior = i;
+                    colInferior = j;
+                }
+            } else if (zActual > z) {
+                if (filaSuperior == -1 || zActual < (filaSuperior * 0.10 + colSuperior * 0.01)) {
+                    filaSuperior = i;
+                    colSuperior = j;
+                }
+            }
+        }
+    }
+
+    // Si podemos interpolar
+    if (filaInferior != -1 && filaSuperior != -1) {
+        double zInferior = filaInferior * 0.10 + colInferior * 0.01;
+        double zSuperior = filaSuperior * 0.10 + colSuperior * 0.01;
+
+        double alphaInferior = tablaZ[filaInferior][colInferior];
+        double alphaSuperior = tablaZ[filaSuperior][colSuperior];
+
+        // Interpolación lineal de alpha
+        double alphaInterpolado = alphaInferior + (z - zInferior) * (alphaSuperior - alphaInferior) / (zSuperior - zInferior);
+
+        return alphaInterpolado;
+    }
+
+    // Si z está fuera de rango
+    return -1.0; // Indicar error o fuera de rango
+}
+
+// Funcion para encontrar t dado los grados de confianza y alpha
+float encontrarT(double t){
+    int gradoDeLibertad, alpha;
+    
+    printf("Ingrese los grados de libertad: \n ");
+    scanf("%d", &gradoDeLibertad);
+    printf("Valor de alpha: \n");
+    printf("Alpha = 0.10 ----- [1] \n");
+    printf("Alpha = 0.05 ----- [2]\n");
+    printf("Alpha = 0.025 ----- [3]\n");
+    printf("Alpha = 0.01 ----- [4]\n");
+    printf("Alpha = 0.00833 ----- [5] \n");
+    printf("Alpha = 0.00625 ----- [6] \n");
+    printf("Alpha = 0.005 ----- [7] \n");
+    scanf("%d", &alpha);
+
+    float valor = 0;
+    switch (alpha)
+    {
+    case 1:
+        valor = 0.10;
+        break;
+    
+    case 2:
+        valor = 0.05;
+        break;
+
+    case 3:
+        valor = 0.025;
+        break;
+
+    case 4:
+        valor = 0.01;
+        break;
+
+    case 5:
+        valor = 0.00833;
+        break;
+
+    case 6:
+        valor = 0.00625;
+        break;
+    
+    case 7:
+        valor = 0.005;
+        break;
+    }
+    
+
+    printf("\n Grados de libertad: %d", gradoDeLibertad);
+    printf("\n Valor de alpha: %.5f \n", valor);
+
+    t = tablaT[gradoDeLibertad - 1][alpha - 1];
+
+    return t;
+}
+
+// Funcion para encontrar los grados de confianza y alpha dado t
+void encontrarConT(double t){
+    int gradosDeConfianza;
+    double alpha;
+    double valoresAlpha[7] = {0.10, 0.05, 0.025, 0.01, 0.00833, 0.00625, 0.005};
+
+    for(int i = 0; i <30; i++){
+        for(int j = 0; j < 7; j++){
+            if (fabs(t - tablaT[i][j]) < 0.0001){
+                gradosDeConfianza = i;
+                alpha = valoresAlpha[j];
+                printf("Grado de confianza: %d \n", gradosDeConfianza);
+                printf("Alpha: %.5lf \n", alpha);
+                printf(" -------------------- \n ");
+                return;
+            }
+        }
+    }
+}
+
+// Cálculo conjunto de Sxx y Sxy
+void calcularSxxSxy(float x[], float y[], float media_x, float media_y, int n, float *Sxx, float *Sxy) {
+    *Sxx = 0.0;
+    *Sxy = 0.0;
+    for (int i = 0; i < n; i++) {
+        float dx = x[i] - media_x;
+        float dy = y[i] - media_y;
+        *Sxx += dx * dx;
+        *Sxy += dx * dy;
+    }
+}
+
+// Función principal de regresión lineal
+void regresionLineal(float x[], float y[], int n) {
+    float suma_x = funcionValoresManuales(x, n);
+    float suma_y = funcionValoresManuales(y, n);
+
+    float media_x = funcionMedia(suma_x, n);
+    float media_y = funcionMedia(suma_y, n);
+
+    float Sxx, Sxy;
+    calcularSxxSxy(x, y, media_x, media_y, n, &Sxx, &Sxy);
+
+    float b = Sxy / Sxx;
+    float a = media_y - b * media_x;
+
+    printf("\n La ecuacion de la recta es: y = %.4f + %.4fx\n", a, b);
+    printf("\n");
+}
 
 int main(){
 
     // Variables
-    int opcion = 0;
-    int n = 0;
-    float suma = 0;
-    float arreglo[MAX_NUMEROS];
-
-    // Primero realizaremos una opcion al usuario para ver si quiere ingresar un archivo de texto o ingresar los valores manualmente
+    int opcionUno = 0;
+    int modo_tallo;
+    int modo_hoja;
     
-    printf("---- ¿QUE DESEA REALIZAR? ---- \n");
-    printf("Ingresar archivo de texto ---- [1] \n");
-    printf("Ingresar los valores manualmente ---- [2] \n");
-    scanf("%d", &opcion);
+    do{
+        // MENU PARA SABER QUE SE DESEA HACER
+        printf("\n Que desea realizar \n");
+        printf("Graficar ----- [1] \n");
+        printf("Estadisticos --- [2] \n");
+        printf("Calcular alpha utilizando la integral --- [3] \n");
+        printf("Encontrar z con el valor de alpha ---- [4]\n");
+        printf("Encontrar alpha con el valor de z ---- [5] \n");
+        printf("Encontrar t con los grados de libertad y alpha ---- [6] \n");
+        printf("Encontrar los grados de libertad y alpha dado t --- [7]\n");
+        printf("Regresion Lineal --- [8]\n");
+        printf("Salir ------ [9] \n");
+        scanf("%d", &opcionUno);
 
-    if (opcion == 1){ // Ingresar archivo de texto
-        char nombreArchivo[100];
-        printf("Ingrese el nombre del archivo:\n");
-        scanf("%s", nombreArchivo);
+        int opcion = opcionUno;
+        int n = 0;
+        float suma = 0;
+        float arreglo[MAX_NUMEROS];
+        n = sizeof(arreglo) / sizeof(arreglo[0]);
+        
+        switch (opcion) {
+        case 1: // Graficar
+            printf("\n ---- QUE DESEA REALIZAR? ---- \n");
+            printf("Ingresar archivo de texto ---- [1] \n");
+            printf("Ingresar los valores manualmente ---- [2] \n");
+            scanf("%d", &opcion);
 
-        if (leerArchivoNumeros(nombreArchivo, arreglo, &n)) {
-            suma = 0;
-            printf("Números leídos: ");
-            for (int i = 0; i < n; i++) {
-                printf("%.2f ", arreglo[i]);
-                suma += arreglo[i];
+            if (opcion == 1){ // Ingresar archivo de texto
+                char nombreArchivo[100];
+                printf("Ingrese el nombre del archivo:\n");
+                scanf("%s", nombreArchivo);
+
+                if (leerArchivoNumeros(nombreArchivo, arreglo, &n)) {
+                    suma = 0;
+                    printf("Números leídos: ");
+                    for (int i = 0; i < n; i++) {
+                        printf("%.2f ", arreglo[i]);
+                        suma += arreglo[i];
+                    }
+                    printf("\n");
+                } 
+
+                else {
+                    printf("Error leyendo archivo.\n");
+                }
             }
-            printf("\n");
-        } 
 
-        else {
-            printf("Error leyendo archivo.\n");
+            else { // Ingresar valores manualmente 
+                printf("Ingrese la cantidad de valores a ingresar: \n");
+                scanf("%d" , &n);
+
+                suma = funcionValoresManuales(arreglo, n); // Funcion para guardar los valores
+            }
+
+            int opcion;
+
+            printf("\n Que grafico desea realizar: \n");
+            printf("Tallo y hojas ---- [1] \n");
+            printf("Grafica de puntos ---- [2] \n");
+            printf("Histograma ---- [3] \n");
+            scanf("%d", &opcion);
+
+            switch (opcion){
+            case 1:
+                //int n = sizeof(arreglo) / sizeof(arreglo[0]);
+
+                printf("=== Configuración de Tallo y Hoja ===\n");
+                printf("Seleccione cómo desea calcular el tallo:\n");
+                printf("1. Decenas \n");
+                printf("2. Unidades \n");
+                printf("Opción: ");
+                scanf("%d", &modo_tallo);
+
+                printf("\nSeleccione cómo desea calcular la hoja:\n");
+                printf("1. Unidades \n");
+                printf("2. Decimales \n");
+                printf("Opción: ");
+                scanf("%d", &modo_hoja);
+
+                // Validar
+                if (modo_tallo < 1 || modo_tallo > 2 || modo_hoja < 1 || modo_hoja > 2) {
+                    printf("Opciones inválidas. Intenta nuevamente.\n");
+                    break;
+                }
+
+                generar_tallo_hoja_barras(arreglo, n, "tallo_hoja.dat", modo_tallo, modo_hoja);
+                graficar_tallo_hoja_gnuplot();
+                break;
+            
+            case 2:
+                generar_puntos(arreglo, n, "puntos.dat");
+                graficar_puntos_gnuplot();
+                break;
+            
+            case 3:{
+                int clases;
+                printf("\nIngrese el número de clases para el histograma: ");
+                scanf("%d", &clases);
+
+                histograma(arreglo, n, clases, "histograma.dat");
+                graficar_histograma_gnuplot();
+                break;
+            }
+            default:
+                break;
+            }
+
+            break;
+        
+        // Todos los estadisticos (MODA, MEDIA, MEDIANA, MEDIA RECORTADA, VARIANZA Y DESVIACION)
+        case 2: 
+        // Primero realizaremos una opcion al usuario para ver si quiere ingresar un archivo de texto o ingresar los valores manualmente
+            printf("\n ---- QUE DESEA REALIZAR? ---- \n");
+            printf("Ingresar archivo de texto ---- [1] \n");
+            printf("Ingresar los valores manualmente ---- [2] \n");
+            scanf("%d", &opcion);
+
+            if (opcion == 1){ // Ingresar archivo de texto
+                char nombreArchivo[100];
+                printf("Ingrese el nombre del archivo:\n");
+                scanf("%s", nombreArchivo);
+
+                if (leerArchivoNumeros(nombreArchivo, arreglo, &n)) {
+                    suma = 0;
+                    printf("Números leídos: ");
+                    for (int i = 0; i < n; i++) {
+                        printf("%.2f ", arreglo[i]);
+                        suma += arreglo[i];
+                    }
+                    printf("\n");
+                } 
+
+                else {
+                    printf("Error leyendo archivo.\n");
+                }
+            }
+
+            else { // Ingresar valores manualmente 
+                printf("Ingrese la cantidad de valores a ingresar: \n");
+                scanf("%d" , &n);
+
+                suma = funcionValoresManuales(arreglo, n); // Funcion para guardar los valores
+            }
+            funcionMODA(arreglo, n); // Funcion para obtener moda
+
+            // Media 
+            float media; 
+
+            media = funcionMedia(suma, n);
+
+            printf(" -------------------- ");
+            printf("\n La media es: %.2f \n", media);
+            printf(" -------------------- \n");
+
+            // Mediana 
+            funcionMediana(arreglo,n);
+            printf(" -------------------- \n ");
+            printf(" -------------------- \n ");
+
+            float arregloDos[100];
+            for (int i = 0; i < 100; i++) {
+                arregloDos[i] = arreglo[i];
+            }
+            // Media Recortada
+            funcionMediaRecortada(arregloDos, n, suma);
+
+            // Varianza poblacional
+            float o;
+            int contador = 0;
+            clock_t start, end; // Variable para guardar inicio y fin del tiempo
+            double cpu_time_used; // Variable tiempo usado
+
+            start = clock(); // Inicio de la medicion del tiempo
+            o = funcionVarianzaPoblacional(arreglo, media, n, &contador);
+
+            printf(" \n -------------------- \n ");
+            printf("La varianza poblacional es: %.2f \n", o);
+            printf(" -------------------- \n ");
+
+            
+            o = sqrt(o); // Desviacion poblacional 
+
+            contador = contador + 1;
+
+            end = clock(); // Fin de la medicion del tiempo 
+
+            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC * 1000; // Se utiliza "Clocks per sec" y se multiplica por 1000 para saberlo en milisegundos 
+
+            printf(" \n -------------------- \n ");
+            printf("La desviacion poblacional es: %.2f \n", o);
+            printf(" -------------------- \n ");
+            printf("Para obtener la varianza y desviacion poblacional \n");
+            printf("\n Se utilizaron un total de %d calculos y con un tiempo utilizado por el procesador de %.2lf milisegundos \n", contador, cpu_time_used);
+            printf(" -------------------- \n ");
+
+            // Varianza muestral 
+            float s = 0;
+            
+            start = clock(); // Inicio de la medicion del tiempo
+
+            contador = 0;
+
+            s = funcionVarianzaMuestral(arreglo, media, n , &contador);
+            printf(" \n -------------------- \n ");
+            printf("La varianza muestral es: %.2f \n", s);
+            printf(" -------------------- \n ");
+            
+
+            s = sqrt(s); // DESVIACION MUESTRAL 
+            contador = contador + 1;
+
+            end = clock(); // Fin de la medicion del tiempo 
+
+            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC * 1000; // Se utiliza "Clocks per sec" y se multiplica por 1000 para saberlo en milisegundos 
+
+            printf(" \n -------------------- \n ");
+            printf("La desviacion muestral es: %.2f \n", s);
+            printf(" -------------------- \n ");
+            printf("Para obtener la varianza y desviacion muestral \n");
+            printf("\n Se utilizaron un total de %d calculos y con un tiempo utilizado por el procesador de %.2lf milisegundos \n", contador, cpu_time_used);
+        
+            // ERROR E INTERVALO DE CONFIANZA 
+
+                // Variables
+                
+                opcion = 0;
+                media = 0;
+                s = 0;
+                n = 0;
+            
+                for (int i = 0; i < 10; i++) {
+                    arregloDos[i] = 0;
+                }
+
+                float errorEstandar;
+                float desviacion;
+                float varianza;
+                
+                printf(" \n -------------------- \n ");
+                printf(" \n ERROR E INTERVALO DE CONFIANZA \n ");
+                printf(" \n -------------------- \n ");
+                printf("Como le gustaria obtenerlos? \n");
+                printf(" \n -------------------- \n ");
+                printf("Datos manualmente ----- [1] \n");
+                printf("Ingresar archivo existente ---- [2] \n");
+                printf("Ingresar los valores estadisticos --- [3] \n");
+                printf("Sin error estandar e intervalo de confianza --- [4] \n");
+                scanf("%d", &opcion);
+
+                switch (opcion){
+                case 1: // Se utilizan las funciones para obtener los datos necesarios, y despues la funcion del valor estandar.
+                    printf("Ingrese la cantidad de datos a ingresar: \n");
+                    scanf("%d", &n);
+                    suma = funcionValoresManuales(arregloDos, n);
+                    media = funcionMedia(suma, n);
+                    varianza = funcionVarianzaMuestral(arregloDos, media, n, &contador);
+                    // TEMPORAL, FALTA HACERLO EN FUNCION
+                    desviacion = sqrt(varianza); 
+                    errorEstandar = funcionErrorEstandar(desviacion, n);
+                    printf("\n El valor estandar es: %.2f \n", errorEstandar);
+                    break;
+
+                case 2:
+                    // ARCHIVO EXISTENTE
+                
+
+                case 3:
+                    printf(" \n -------------------- \n ");
+                    printf("Ingrese la media: \n");
+                    scanf("%f", &media);
+                    printf("Ingrese la desviacion estandar: \n");
+                    scanf("%f", &s);
+                    printf("Ingrese la cantidad de datos a ingresar: \n");
+                    scanf("%d", &n);
+                    printf(" \n -------------------- \n ");
+
+                    // Error estandar
+                    errorEstandar = funcionErrorEstandar(s,n);
+
+                    printf("El valor estandar es: %.2f \n", errorEstandar);
+                    
+                    // INTERVALO DE CONFIANZA
+                    funcionIntervaloConfianza(media, errorEstandar);
+                    break;
+                case 4: 
+                    break;
+                }
+                break;
+
+        // CALCULAR ALPHA UTILIZANDO INTEGRAL
+        case 3: { 
+            double z, alpha;
+            n = 100000;
+
+            printf(" \n -------------------- \n ");
+            printf("Ingrese el valor de Z: \n");
+            scanf("%lf", &z);
+
+            alpha = funcionIntegralTrapecio(-10, z , n);
+
+            printf("El valor de alpha para z = %.2f es: %.4f \n", z, alpha);
+
+            // Exportar datos para graficar
+            FILE *fp = fopen("CurvaNormal.txt", "w");
+            if (fp == NULL){
+                printf("Error al crear archivo de datos \n");
+                break;
+            }
+
+            double x;
+            for(x = -4; x <= 4; x += 0.01){
+                fprintf(fp, "%.4f %.6f \n", x, normal(x));
+            }
+
+            fclose(fp);
+            printf("Datos guardados en (CurvaNormal.txt) para graficar \n");
+            break;
         }
-    }
 
-    else { // Ingresar valores manualmente 
-        printf("Ingrese la cantidad de valores a ingresar: \n");
-        scanf("%d" , &n);
+        // Encontrar z dado un valor alpha 
+        case 4: {
+            double alpha = 0;
 
-        suma = funcionValoresManuales(arreglo, n); // Funcion para guardar los valores
-    }
+            printf("Ingrese el valor de alpha: \n");
+            scanf("%lf", &alpha);
 
-    // Ya guardamos los valores en un arreglo ahora si podemos sacar los valores estadisticos.
+            alpha = encontrarAlpha(alpha);
+            encontrarZ(alpha); 
+            break;
+        }
 
-     funcionMODA(arreglo, n); // Funcion para obtener moda
+        // Encontrar alpha dado un valor z
+        case 5: {
+            double z, alpha;
+            printf("Ingrese el valor de z: \n");
+            scanf("%lf", &z);
 
-        // Media 
-        float media; 
+            alpha = encontrarAlphaDesdeZ(z);
 
-        media = funcionMedia(suma, n);
+            if (alpha >= 0) {
+                printf("Z: %lf\n", z);
+                printf("Alpha = %lf\n", alpha);
+            }
 
-        printf(" -------------------- ");
-        printf("\n La media es: %.2f \n", media);
-        printf(" -------------------- \n");
+            break;
+        }
 
-        // Mediana 
-        funcionMediana(arreglo,n);
-        printf(" -------------------- \n ");
-        printf(" -------------------- \n ");
+        // Encontrar T dado los grados de libertad y alpha
+        case 6: { 
+            float t;
 
-        // Media Recortada
-        funcionMediaRecortada(arreglo, n, suma);
+            t = encontrarT(t);
+            
+            printf(" \n -------------------- \n ");
+            printf("El valor de t es: %.3f \n", t);
+        }
 
-        // Varianza poblacional
-        float o;
-        int contador = 0;
-        clock_t start, end; // Variable para guardar inicio y fin del tiempo
-        double cpu_time_used; // Variable tiempo usado
+        // Encontrar los grados de libertad y alpha dado T
+        case 7:{
+            float t = 0;
 
-        start = clock(); // Inicio de la medicion del tiempo
-        o = funcionVarianzaPoblacional(arreglo, media, n, &contador);
+            printf("Ingrese el valor de t: \n");
+            scanf("%f", &t);
 
-        printf(" \n -------------------- \n ");
-        printf("La varianza poblacional es: %.2f \n", o);
-        printf(" -------------------- \n ");
+            printf(" \n -------------------- \n ");
+            printf("Valor de t: %f", t);
+            printf(" \n -------------------- \n ");
 
-        
-        o = sqrt(o); // Desviacion poblacional 
 
-        contador = contador + 1;
+            encontrarConT(t);
+            break;   
+        }
 
-        end = clock(); // Fin de la medicion del tiempo 
+        // Regresion lineal 
+        case 8: { 
 
-        cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC * 1000; // Se utiliza "Clocks per sec" y se multiplica por 1000 para saberlo en milisegundos 
+            opcion = 0;
 
-        printf(" \n -------------------- \n ");
-        printf("La desviacion poblacional es: %.2f \n", o);
-        printf(" -------------------- \n ");
-        printf("Para obtener la varianza y desviacion poblacional \n");
-        printf("\n Se utilizaron un total de %d calculos y con un tiempo utilizado por el procesador de %.2lf milisegundos \n", contador, cpu_time_used);
-        printf(" -------------------- \n ");
+            printf("--- Regresion Lineal --- \n ");
+            printf("Desea: \n");
+            printf("Agregar archivo de texto ----- [1] \n");
+            printf("Agregar manualmente ----- [2] \n");
+            scanf("%d", &opcion);
 
-        // Varianza muestral 
-        start = 0;
-        end = 0; 
-        cpu_time_used = 0; 
-        float s = 0;; 
-        
-        start = clock(); // Inicio de la medicion del tiempo
+            switch (opcion) {
+            case 1: { // Archivo existente
+                break;
+            }    
 
-        contador = 0;
+            case 2: { // Valores manualmente
+                n = 0;
+                float sumaUno, sumaDos;
 
-        s = funcionVarianzaMuestral(arreglo, media, n , &contador);
-        printf(" \n -------------------- \n ");
-        printf("La varianza muestral es: %.2f \n", s);
-        printf(" -------------------- \n ");
-        
+                printf("Cuantos valores desea ingresar: \n");
+                scanf("%d", &n);
+                // Reiniciamos ambos arreglos
+                for(int i = 0; i < 100; i++){
+                    arreglo[i] = 0.0;
+                }
+                
+                for(int i = 0; i < 100; i++){
+                    arregloDos[i] = 0.0;
+                }
+                
+                regresionLineal(arreglo, arregloDos, n);
+                break;
+            }
+            default:
+                break;
+            }
 
-        s = sqrt(s); // DESVIACION MUESTRAL
-        contador = contador + 1;
+            break;
+        }
 
-        end = clock(); // Fin de la medicion del tiempo 
-
-        cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC * 1000; // Se utiliza "Clocks per sec" y se multiplica por 1000 para saberlo en milisegundos 
-
-        printf(" \n -------------------- \n ");
-        printf("La desviacion muestral es: %.2f \n", s);
-        printf(" -------------------- \n ");
-        printf("Para obtener la varianza y desviacion muestral \n");
-        printf("\n Se utilizaron un total de %d calculos y con un tiempo utilizado por el procesador de %.2lf milisegundos \n", contador, cpu_time_used);
-
-        // ERROR E INTERVALO DE CONFIANZA 
-
-    // Variables
+        }
+    } while (opcionUno != 9);
     
-    opcion = 0;
-    media = 0;
-    s = 0;
-    n = 0;
-    float arregloDos[100];
-    float errorEstandar;
-    float desviacion;
-    float varianza;
-    
-    printf(" \n -------------------- \n ");
-    printf(" \n ERROR E INTERVALO DE CONFIANZA \n ");
-    printf(" \n -------------------- \n ");
-    printf("¿Como le gustaria obtenerlos? \n");
-    printf(" \n -------------------- \n ");
-    printf("Datos manualmente ----- [1] \n");
-    printf("Ingresar archivo existente ---- [2] \n");
-    printf("Ingresar los valores estadisticos --- [3] \n");
-    scanf("%d", &opcion);
-
-    switch (opcion){
-    case 1: // Se utilizan las funciones para obtener los datos necesarios, y despues la funcion del valor estandar.
-        printf("Ingrese la cantidad de datos a ingresar: \n");
-        scanf("%d", &n);
-        suma = funcionValoresManuales(arregloDos, n);
-        media = funcionMedia(suma, n);
-        varianza = funcionVarianzaMuestral(arregloDos, media, n, &contador);
-        // TEMPORAL, FALTA HACERLO EN FUNCION
-        desviacion = sqrt(varianza); 
-        errorEstandar = funcionErrorEstandar(desviacion, n);
-        printf("\n El valor estandar es: %.2f \n", errorEstandar);
-        break;
-
-    case 2:
-        // ARCHIVO EXISTENTE
-    
-
-    case 3:
-    printf(" \n -------------------- \n ");
-        printf("Ingrese la media: \n");
-        scanf("%f", &media);
-        printf("Ingrese la desviacion estandar: \n");
-        scanf("%f", &s);
-        printf("Ingrese la cantidad de datos a ingresar: \n");
-        scanf("%d", &n);
-        printf(" \n -------------------- \n ");
-
-        // Error estandar
-        errorEstandar = funcionErrorEstandar(s,n);
-
-        printf("El valor estandar es: %.2f \n", errorEstandar);
-        
-    default:
-        break;
-    }
-
-    // INTERVALO DE CONFIANZA
-    funcionIntervaloConfianza(media, errorEstandar);
-
-    // CALCULAR ALPHA UTILIZANDO INTEGRAL
-    double z, alpha;
-    n = 100000;
-
-    printf(" \n -------------------- \n ");
-    printf("Ingrese el valor de Z: \n");
-    scanf("%lf", &z);
-
-    alpha = funcionIntegralTrapecio(-10, z , n);
-
-    printf("El valor de alpha para z = %.2f es: %.4f \n", z, alpha);
-
-    // Exportar datos para graficar
-    FILE *fp = fopen("CurvaNormal.txt", "w");
-    if (fp == NULL){
-        printf("Error al crear archivo de datos \n");
-        return 1;
-    }
-
-    double x;
-    for(x = -4; x <= 4; x += 0.01){
-        fprintf(fp, "%.4f %.6f \n", x, normal(x));
-    }
-
-    fclose(fp);
-    printf("Datos guardados en (CurvaNormal.txt) para graficar \n");
-
-    // Encontrar el valor de z a paratir de un valor de alpha
-    alpha = 0;
-    int primerNumero;
-
-    printf("Ingrese el valor de alpha: \n");
-    scanf("%lf", &alpha);
-
-    alpha = encontrarAlpha(alpha);
-
-    encontrarZ(alpha);
-
-    return 0;
+    return 0;    
 }

@@ -1,0 +1,1653 @@
+El navegador se encarga de transformar el codigo de una pagina web en lo que vemos.
+
+CSS nos sirve para agarrar las etiquetas que usamos en html, y darles estilo., tamaño, entre otras cosas.
+
+CSS es la abreviación a (Cascading Style Sheets), o en español (hojas de estilo cascada), pero ¿porque?, esto se debe a que se definen los estilos paso por paso.
+
+
+CSS Funciona mediante reglas de estilo.
+
+La estricta de una regla de estilo de css consta de:
+
+Un selector y un bloque de declaraciones, donde el selector hace referencia al elemento html que le quieres modificar sus propiedades, y el bloque de declaraciones tiene todas las propiedades que queremos modificar y cual será el valor que tengan.
+
+.CUBO {
+	COLOR: AZUL;
+	TAMAÑO: 16 PX;
+	MARGEN: 20 PX;
+	BORDE: NEGRO;
+]
+
+Donde lo que esta antes de los corchetes es el selector, y lo que esta dentro es el bloque de declaraciones.
+
+Por ejemplo si tenemos varios párrafos y queremos que todos sean de color azul y de 18 px, vamos a la sección de css, escribimos un p para seleccionar todos los párrafos, y abrimos un bloque de declaraciones, y dentro escribimos las propiedades que queramos modificar y el valor de esas porpiedades.
+
+Quedaria de la siguiente manera:
+
+P {
+	color: blue;
+	Font-size: 18 px;
+}
+Donde:
+color: es el color que asignaremos
+Font-size, significa el tamaño de la letra.
+
+El punto y coma se usa para separar declaraciones entre si.
+
+
+	COMO INTEGRAR CSS
+
+Existen 3 formas de enlazar CSS.
+
+	ESTILOS EN LINEA
+
+La primera se llama estilos en linea.
+
+Se utiliza el atributo style = " ", dentro de la etiqueta , = Le estamos indicando que esta linea de 							código tendrá una modificación de propiedades. 
+
+Por ejemplo:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+</head>
+<body>
+    <h1> TITULO</h1>
+    <p style="color:red"> ESTAMOS PROBANDO EL CSS A VER QUE TAL NOS QUEDA</p>
+    
+</body>
+</html>
+
+Lo que hace que el color del párrafo este en rojo.
+
+Sin embargo esta manera tiene limitaciones, la primera es que no se deben juntar lenguajes en nuestra línea de codigo ya que es una mala practica, cada lenguaje debe estar en una sección especifica.
+
+
+
+	ESTILOS EN BLOQUE
+
+Por lo que para evitar esto se puede utilizar en lugar de style como atributo, como etiqueta.
+
+De la siguiente manera:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+</head>
+<body>
+    <h1> TITULO</h1>
+    <p> ESTAMOS PROBANDO EL CSS A VER QUE TAL NOS QUEDA</p>
+    <style>
+        p{
+            color: red
+        }
+    </style>
+    
+</body>
+</html> 
+
+Sin embargo lo recomendable es tener todo en archivos separados. Ya que no son pocos estilos los que utilizamos en una pagina web.
+	
+
+	LINK 
+
+Se llama link ya que linkea una hoja de estilos, y esta hoja de estilos se suele poner en el head. En la cual se usa la etiqueta <link> , la cual cuenta con un atributo llamado (rel = " ")  en las comillas se debe de poner stylesheet. El atributo (del = " ") viene de relationship ya que es la relación entre lo que estamos linkeando, la cual es una hoja de estilos que define las propiedades de todo el archivo de html.
+
+También cuenta con el atributo (href = " "), el cual es el enlace de nuestros estilos con css.
+
+Por lo que quedaría de la siguiente manera:
+
+<link rel = "stylesheet" href = "primerEstilo.css">
+
+	EJEMPLO CSS CON LINK 
+
+Por lo que nuestra hoja en html quedaría de la siguiente manera:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primer.css">
+</head>
+<body>
+    <h1> TITULO</h1>
+    <p> ESTAMOS PROBANDO EL CSS A VER QUE TAL NOS QUEDA</p>
+    
+</body>
+</html> 
+
+Y nuestra hoja de css quedaría de la siguiente manera:
+
+p {
+    color:red;
+}
+
+
+	ESTRUCTURA BASICA DE CSS
+
+Para cambiar las propiedades del/o los elementos
+
+1. Poner un selector (hay varias maneras de seleccionar elementos, que veremos después).
+2. Abrimos las llaves {} (significa que estamos abriendo un bloque, inician y terminan un bloque).
+3. Declarar las propiedades que vamos a modificar y que valor le vamos a dar.
+
+
+	SELECTORES DE ELEMENTOS DE HTML EN CSS
+
+Es la forma que tenemos de seleccionar uno o varios elementos dentro de un documento en html para modificarlo utilizando css.
+
+
+	SELECTOR ELEMENTS
+
+Lo que hace es buscar el nombre del elemento html que se llame de la manera que buscamos, por ejemplo de la etiqueta <p> se cambiaran las propiedades de todo elemento que lleve ese nombre.
+
+	
+Si por ejemplo creamos una lista de 4 elementos y hacemos lo siguiente:
+
+CODIGO HTML:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primerEstilo.css">
+</head>
+<body>
+    <h1> INGREDIENTES</h1>
+    <ul>
+        <li>Leche</li>
+        <li> Pan </li>
+        <li> Huevo </li>
+    </ul>
+    
+</body>
+</html> 
+
+CODIGO CSS:
+
+Li { 
+	color: red
+}
+
+Lo que hará es que los 4 elementos de la lista seran de color rojo. 
+
+Pero ¿que debemos hacer si queremos modificar solamente un elemento de la lista?
+
+Se puede utilizar la etiqueta <span> </span> , ya que permite seleccionar algo muy especifico. 
+
+	EJEMPLO SELECTOR USANDO SPAN
+
+CODIGO HTML:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primerEstilo.css">
+</head>
+<body>
+    <h1> INGREDIENTES</h1>
+    <ul>
+        <li> <span>Leche</span> </li>
+        <li> Pan </li>
+        <li> Huevo </li>
+    </ul>
+    
+</body>
+</html> 
+	
+CODIGO CSS:
+
+span {
+    color:red;
+}
+
+Sin embargo simplemente se va a cambiar el color del elemento en este caso seria (leche), pero no el elemento completo de la lista ya que el punto de la lista, seguirá siendo de color negro.
+
+Por lo que la etiqueta <span> </span> nos sirve solamente en el caso que queramos modificar algo muy especifico, por ejemplo, una frase de un párrafo. 
+
+
+	SELECTOR CLASES
+
+Es la forma de separar los elementos por clases, por ejemplo, si queremos modificar todos los párrafos que hablen de un tema en específico sean de un color, lo podemos clasificar por una clase. Podemos modificar todos los elementos una sola vez, y se queda como una plantilla de esa clasificación especifica.
+
+Para ello, se utiliza la etiqueta class = " ", y en las comillas ponemos el nombre de la clase.
+
+Mas adelante estaran las estrategias para seleccionar el mejor nombre para una clase , para que le permita a cualquier programador entender porque lleva ese nombre.
+
+	EJEMPLO SELECTOR CLASES
+
+CODIGO HTML:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primerEstilo.css">
+</head>
+<body>
+    <h1> INGREDIENTES</h1>
+    <ul>
+        <li class="faltante">Leche</li>
+        <li> Pan </li>
+        <li class="faltante"> Huevo </li>
+    </ul>
+    
+</body>
+</html> 
+
+CODIGO CSS:
+
+.faltante {
+    color:red;
+}
+
+Al llamar a una clase en css debemos de colocarle un punto (.) antes del selector, ya que si no estaríamos llamando a una etiqueta llamada faltante, no a una clase.
+
+
+	SELECTOR ID
+
+Este nos sirve para determinar un elemento clave, ya que solamente se puede otorgar a un elemento en toda la pagina. Vaya si es posible ponerle un id igual a mas de un elemento sin embargo NO es una buena practica, ya que al implementar java script tendremos problemas.
+
+	EJEMPLO SELECTOR ID
+
+CODIGO HTML:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primerEstilo.css">
+</head>
+<body>
+    <h1> INGREDIENTES</h1>
+    <ul>
+        <li class="faltante">Leche</li>
+        <li> Pan </li>
+        <li id="ingredienteSecreto"> Huevo </li>
+    </ul>
+    
+</body>
+</html> 
+
+CODIGO CSS:
+
+.faltante {
+    color:red;
+}
+
+#ingredienteSecreto{
+    color:aqua
+}
+
+Para llamar a un id en css debemos de colocarle un signo de gato (#) antes del selector.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	PROPIEDADES PARA MODIFICAR ELEMENTOS
+
+Esto nos sirve para darle otro tipo de tipográfica, mismo tamaño, mismo espaciado, etc.
+
+	PROPIEDADES DE FUENTE Y TEXTO
+
+Tenemos muchas propiedades en las cuales se  le pueden dar a las cajas, para agregar sombras, para cambiar las posiciones, entre muchas cosas mas.
+
+	COLOR
+
+Simplemente cambia el color del elemento seleccionado, se puede trabajar con colores fijos y absolutos.
+
+EJEMPLO CSS:
+
+h1 {
+    color: red
+}
+
+p {
+    color:blueviolet
+}
+
+	FONT-FAMILY
+
+Es la tipografica que queremos que tenga nuestro elemento seleccionado. Se puede usar poniendo la propiedad como:
+
+Font-family: courier New;
+
+Sin embargo también se puede, y es OBLIGATORIO, utilizar comillas simples para nombrar la tipografía si cuenta con mas de una palabra.
+
+EJEMPLO CSS:
+
+h1 {
+    color: red;
+    font-family:'Courier New';
+}
+
+También se puede utilizar una coma después de la tipografica para darle mas opciones en el caso de que una tipografica no cargue o no sea compatible con el navegador. Lo que se ira recorriendo de izquierda a derecha.
+
+EJEMPLO CSS:
+
+p {
+    color:blueviolet;
+    font-family:'Times New Roman','Courier New';
+}
+
+	
+	FONT-SIZE
+
+Este es el tamaño del texto, por defecto es de 16 px, pero podemos medirlo en pixeles, nm, rems, en porcentajes, pero eso se vera después en unidades de medida.
+
+
+	FONT-WEIGHT
+
+Esta define el grosor de tipografia.
+
+Se puede utilizar del 100-900 para indicar el grosor (cada tipografía tiene definida un grosor).
+
+EJEMPLO CSS:
+
+h1 {
+    color: red;
+    font-family:'Courier New';
+    font-weight:600;
+}
+
+En donde puede que el creador de la tipo gráfica haya indicado que del 100 al 500, no haya un cambio, 
+PERO del 600 al 900 si haya un cambio.
+
+pero también podemos usar palabras claves por ejemplo: bold (texto en negritas)
+
+EJEMPLO CSS:
+
+h1 {
+    color: red;
+    font-family:'Courier New';
+    font-weight: bold;
+}
+
+Donde el bold indica que el texto este en negritas.
+
+BOLD Y BOLDER son lo mismo, si solo que bold es darle un valor directo de 700, y bolder da un paso mas adelante. Por laque si el valor por defecto fuera 800 al poner bolder, iría a 900.
+
+
+	FONT-STYLE
+
+Son otros estilos de letra, los principales son:
+	
+	FONT-SYLE ITALIC
+
+Se utiliza:
+
+font-style: italic;
+
+Pone la letra inclinada
+
+
+	NORMAL
+
+Se utiliza:
+
+font-style: normal;
+
+Valor por defecto
+
+
+	OBLIQUE 
+Se utiliza:
+
+font-style: oblique;
+
+Inclina la tipografía pero a un menor ángulo que la itálica.
+
+
+	OBLIQUE INDICADO
+Se utiliza:
+
+font-style: oblique 30deg;
+
+Se utiliza el mismo que el anterior solamente que podemos indicar el grado de inclinación de la letra.
+
+
+	TEXT-ALIGN
+
+Alinea texto dentro de su contenedor, por lo que estas propiedades se mueven en el rango disponible.
+
+
+	LEFT
+
+Se utiliza:
+
+Text-align: left;
+
+La letra arranca a la izquierda.
+
+
+	RIGHT
+
+Se utiliza:
+
+Text-align: right;
+
+La letra arranca a la derecha.
+
+
+	CENTER
+
+Se utiliza:
+
+Text-align: center;
+
+Centra el elemento.
+
+
+	JUSTIFY
+
+Se utiliza:
+
+text-align: justify;
+
+Esta propiedad  alinea el texto (lo justifica).
+
+
+	DATO SOBRE LAS PROPIEDADES 
+
+Se puede combinar esta propiedad con todas las anteriores.
+
+
+	START
+
+Es lo mismo que el left pero se inicia el texto al inicio de la manera que escribimos, por lo que en Mexico es de izquierda a derecha, pero si por ejemplo: estamos en arabia saudita se empezara de derecha a izquierda.
+
+
+	END
+
+Es lo mismo que el anterior (START) pero empieza el texto al contrario de la manera en que escribimos.
+
+
+	TEXT-DECORATION
+
+Este también cuenta con varias propiedades, por ejemplo:
+
+	UNDERLINE
+
+Se utiliza:
+
+text-decoration: underline;
+
+Sirve para subrayar el texto seleccionado.
+
+
+	OVERLINE
+
+Se utiliza:
+
+text-decoration: overline;
+
+Subraya el texto seleccionado pero por la parte de arriba.
+
+	
+	LINE-THROUGH
+
+Se utiliza:
+
+text-decoration: underline;
+
+Sirve para subrayar por en medio del texto seleccionado.
+
+
+	DATO SOBRE LAS PROPIEDADES
+
+Se pueden combinar entre si.
+
+
+	BLINK
+
+También existe esta propiedad PERO ya no se utiliza.
+
+Se utiliza:
+
+text-decoration: none;
+
+Hace que no tenga ningún tipo de subrayado.
+
+
+	LINE-HEIGHT
+
+Define el espaciado de una linea a otra.
+
+Se utiliza:
+
+line-height: ;
+
+Si no colocamos un valor después de los 2 puntos, el navegador pone uno por defecto.
+
+
+	LETTER-SPACING
+
+Indica el espacio entre las letras.
+
+Se utiliza:
+
+Letter-spacing: 1px;
+
+Donde lo que va después de los 2 puntos indica la distancia.
+
+	
+	TEXT-TRANSFORM
+
+Se utiliza:
+
+text-transform: ;
+
+El valor por defecto es none, osea que no convierte ni transforma nada.
+
+	UPPERCASE
+
+Se utiliza:
+
+text-transform: uppercase;
+
+Hace que todo el texto seleccionado este escrito en mayúscula.
+
+	
+	LOWERCASE
+
+Se utiliza:
+
+text-transform: lowercase;
+
+Hace que todo el texto seleccionado este escrito en minúscula.
+
+
+	CAPITALIZE 
+
+Se utiliza:
+
+text-transform: capitalize;
+
+Hace que la primer letra de cada palabra del texto este en mayúscula.
+
+
+	TIPOGRAFIAS EXTERNAS
+
+Para extraer tipografías existe la pagina google fonts.
+
+Como traer tipografias que no estén integradas en nuestro sistema, existen 2 formas.
+
+
+	DESCARGAR EL CODIGO E IMPLEMENTAR A NUESTROS CODIGOS.
+
+Solamente seleccionamos la tipografia deseada, y seleccionamos su versión (itálica, negrita, tamaño).
+
+Y para ello debemos oprimir en la letra deseada, de ahí en el botón get Font, y después get embed Code y nos saldría algo como esto:
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+
+Esto lo copiamos en el " <head> </head> " de nuestro html, y como se pasa a nuestro codigo css.
+
+Facil.
+
+Simplemente vemos el nombre que fue asignada a la tipografía seleccionada, el cual se encuentra después del family= , en este caso seria Sedan
+
+Nos pasamos a nuestro codigo css y ponemos ese nombre.
+
+CODIGO CSS:
+
+p {
+    color:blueviolet;
+    font-family: Sedan;
+    font-style: oblique;
+    text-align: left;
+    text-align: justify;
+
+
+	CONFIGURAR NUESTRAS PROPIAS TIPOGRAFIAS
+
+Para ello debemos de crear un archivo de css. 
+
+Se empieza escribiendo lo siguiente:
+
+@font-face {
+	font-family: ;
+	src: url();
+}
+
+En donde en el font-family escribiremos el nombre deseado para nuestra tipografica.
+
+Y en la url escribimos en donde esta almacenada la bibliografía (En una carpeta de nuestra PC). Por lo que vamos a google fonts, debemos descargar la tipografía, se creara una carpeta con todas las tipografías disponibles para la tipografía descargada.
+
+Y diseccionamos como si fuera una imagen. Quedaría algo así.
+
+@font-face {
+	font-family: Paul;
+	src: url(fonts/Montserrat-regular.ttf) format("truetype");
+	font-weight: 400;
+}
+
+Al ser una tipografía creada por nosotros, es recomendable escribir el formato después del url para indicarle al navegador el tipo de formato, esto logra que sea una mayor rapidez y una mejor practica. 
+
+En donde le estamos definiendo el tamaño de la anchura de nuestra tipografía.
+
+Con esto podemos definir las diferentes anchuras que queremos para nuestra misma tipografía.
+
+
+Por ejemplo, a continuación vamos a definir 3 tipos de nuestra tipografía:
+
+@font-face {
+	font-family: Paul;
+	src: url(fonts/Montserrat-regular.ttf) format("truetype");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: Paul;
+	src: url(fonts/Montserrat-ExtraBold.ttf) format("truetype");
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: Paul;
+	src: url(fonts/Montserrat-Black.ttf) format("truetype");
+	font-weight: 900;
+}
+
+En donde aqui estamos definiendo una tipografía normal de tamaño 400, una tipografía en super negritas de tamaño 700, y una ultima tipografía igual de tipo negrita pero de tamaño de 900.
+
+Y aqui ya tenemos creadas 3 tipografías externas configuradas y llamadas como Paul.
+
+
+	BOX MODEL 
+
+Significa modelo de caja, es un concepto, que describe como se diseñan y como se colocan los elementos de html en una pagina web. Ya que todo en html es como si fuera una caja, o en bloques. 
+
+
+	CONTENIDO 
+
+Es el nucleo del box model, que es el área donde se muestra el elemento deseado. 
+
+
+	PADING
+
+(Relleno en epañol), es el espacio entre el contenido y el borde del elemento. Aumenta el área alrededor del contenido dentro del elemento bajo el borde.
+
+	BORDER
+
+Es el borde, la linea que rodea tanto a el contenido como a el pading (o el relleno), se puede controlar el estilo, el grosor y el color del Border.
+
+	MARGIN
+
+Espacio al rededor de la caja que esta fuera del border, este espacio separa el elemento de otros elementos en la pagina. Sin embargo de los 4, es el único que no forma parte de la caja, simplemente sirve para separarla de otros elementos.
+
+
+	PROPIEDADES DE UN BOX MODEL 
+
+	WIDTH Y HEIGHT EN UNA CAJA (BOX) 
+
+Cada caja de un elemento tiene un width y un height (width: anchura, height: altura), si nosotros queremos modificar algo dentro de un elemento, por ejemplo:
+
+<div>
+     <h2>HOLA</h2>
+</div>
+
+Simplemente debemos de cambiarle las propiedades en css.
+
+CODIGO CSS:
+
+div {
+    background: red;
+    width: 200px;
+    height: 200px;
+}
+
+Esto es muy útil ya que podemos hacer muchas cosas con ello, por ejemplo, una linea.
+
+	Ejemplo html:
+
+<div> </div>
+
+
+	Codigo css:
+
+Div {
+	background: red;
+width: 400px;
+height: 2px;
+
+Si queremos acoplar esto en un celular, simplemente debemos de utilizar porcentajes en las medidas.
+
+
+Podemos combinar el uso de medidas en pixeles, y porcentajes. ¿Para que? Así podemos otorgarle un valor a la caja de un formulario por ejemplo, y que las entradas sean un porcentaje de ese valor. 
+
+
+	PADDING Y MARGING EN UNA CAJA (BOX)
+
+Funcionan de manera parecida pero afectando a cosas diferentes. 
+
+
+	PADDING (ESPACIO ENTRE CONTENIDO)
+
+El padding es el espacio entre el contenido y el borde de una caja, aumenta el tamaño alrededor del contenido. El padding es esencial en lo estético de nuestra pagina web.
+
+Por ejemplo:
+
+CODIGO HTML:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primerEstilo.css">
+</head>
+<body>
+    <form class="formulario">
+        <input class="formulario_input" type="text" placeholder="email">
+        <input class="formulario_input" type="password" placeholder="contraseña">
+        <input class="formulario_input" type="submit">
+    </form>
+</body> 
+</html> 
+
+CODIGO CSS:
+
+.formulario{
+    background: red;
+    padding: 10px;
+
+}
+
+.formulario_input{
+    padding: 20px;
+}
+
+El padding por defecto es hacia todos los sentidos del elemento, pero también se puede hacer uno especifico.
+
+	PADING TOP
+
+Se utiliza:
+
+padding-top: 20 px;
+
+	PADDING BOTTOM
+
+Se utiliza:
+
+padding-bottom: 20 px;
+
+	PADDING LEFT
+
+Se utiliza:
+
+padding-left: 20 px;
+
+	PADDING RIGHT
+
+Se utiliza:
+
+padding-right: 20 px;
+
+
+Sin embargo, también podemos especificar cuanto tamaño queremos de separación en una misma linea de texto.
+
+Utilizando el padding, y poniendo los valores deseados, y se leen en el orden de las manecillas del reloj.
+
+Por ejemplo:
+
+padding: 10px 0 40px 20px;
+
+Aqui lo que estamos diciendo es que de arriba haya un espacio de 10 px, de la derecha que no haya un espacio, de abajo un espacio de 40 px, y de la izquierda haya un espacio de 20 px.
+
+Por lo que seria lo mismo a si lo escribiéramos de la siguiente manera:
+
+padding-top: 10 px;
+padding-right: 0;
+padding-bottom: 40 px;
+padding-left: 20 px;
+
+
+También existe la manera de poner 2 valores, y se tomaran en el valor horizontal y en el vertical.
+
+padding: 10px 50px;
+
+Aqui le estamos dando un valor de arriba y abajo de 10 px y de izquierda y derecha de 50px.
+
+
+	MARGIN (ESPACIO ENTRE ELEMENTOS)
+
+El margin es la distancia que hay entre una caja y otra, por ejemplo si ponemos en html:
+
+<div class = "box"></div>
+<div class = "box"></div>
+<div class = "box" ></div>
+
+Y en codigo css ponemos:
+
+.box {
+	background: red;
+	height: 150px
+	width: 150 px;
+	margin: 10 px;
+}
+
+Estariamos creando 3 cajas rojas, de 150 x 150 px, con un espacio entre cada una de ellas de 10 px.
+
+
+	MARGIN COLAPSE 
+
+Existe algo llamado margin colapse que lo que hace es que el margen de los elementos NO se suma, si no se toma el margen mas alto y se utiliza entre 2 elementos.
+
+Si usamos el ejemplo anterior como referencia, cada cada tiene 10 px de margen no?, entonces en medio de estas cajas se encuentran 20px?, pues no, simplemente 10 ya que se toma el margen mas grande, pero en esta caso como son del mismo tamaño se queda en 10.
+
+
+	MARGIN AUTO
+
+Esto centra los elementos a lo ancho del total. 
+
+Por ejemplo:
+
+.card{
+	background: coral;
+	text-align: center;
+	width: 300px;
+	margin: auto;
+}
+
+Lo que estamos haciendo es un texto con fondo color coral, centrado en la caja creada y que tienen una anchura de 300px, y que esta centrada horizontalmente en total a la anchura total.
+
+
+	BORDERS
+
+Son los bordes de la caja. Y esto nos permite modificar 4 aspectos fundamentales de los bordes. 
+
+1- tamaño (border-width)
+2- estilo (border-style)
+3- color (border-color)
+4- redondeos (border-radius)
+
+Div{
+	border-width: 5px;
+	border-color: black;
+	border-style: solid;
+}
+
+Sin estas 3 propiedades no será posible ver el border, por lo que deben de estar todas juntas.
+
+Sin embargo existe una propiedad que remplaza estos 3, esta propiedad se llamar, BORDER.
+
+Ya que se puede realizar estas 3 lineas de codigo, en una sola linea.
+
+Seria de la siguiente manera.
+
+div {
+	border: 5px solid black;
+}
+
+Donde el primero es el tamaño (width), el segundo es el estilo (style) y el tercero el color (color).
+
+Estamos haciendo lo mismo pero solamente con 1 linea de código, no como el anterior que eran 3 lineas de código diferentes.
+
+También se puede modificar en otra linea de codigo alguna propiedad de esas por ejemplo:
+
+div {
+	border: 5px solid black;
+	border-color: red;
+}
+
+Habíamos dicho que el borde fuera negro, sin embargo, pusimos otra especificación de que queríamos que el borde fuera rojo, por lo que tomara la información de la primera linea de código, pero modificara el color ya que pusimos la segunda linea de condigo.
+
+También es posible poner bordes de un elemento solamente en una parte de nuestra caja de elemento.
+
+EXISTE:
+
+1- border-top
+2- border-right
+3- border-bottom
+4- border-left
+
+Donde cada una especifica el borde deseado puede ser de arriba, de un lado, de abajo o del otro lado.
+
+Un ejemplo en codigo css seria:
+
+div{
+	border-top: 3px solid black;
+}
+
+Aqui estamos creandole un borde de 3 px, solido y de color negro, solamente para la parte de arriba de nuestra caja.
+
+
+	BORDER RADIUS (radio del borde)
+
+Ademas de las 3 propiedades anteriormente mencionadas, también existe una propiedad llamada: BORDER-RADIUS.
+
+
+Div{
+	border-width: 5px;
+	border-color: black;
+	border-style: solid;
+	border-radius: 8px;
+}
+
+En este código estamos creando lo mismo que lo anterior, solamente que estamos redondeando el borde de nuestro elemento.
+
+Usualmente se utiliza esta propiedad en porcentaje o en pixeles.
+
+CON PIXELES:
+
+El elemento se redondea de manera mas cuadrática.
+
+CON PORCENTAJE:
+
+El elemento se redondea de manera mas circular.
+
+
+	BOX SIZING (TAMAÑO DE CAJA)
+
+Permite determinar la forma en la que cada componente de la caja (pading, border, contenido y margin) interactuan entre si.
+
+Se utiliza:
+
+box-sizing: border-box;
+
+Y esto lo que otra es que nuestras especificaciones de medidas de la caja (pading, border, contenido y margin)  , se adapten al tamaño de la caja que le otorgamos.
+
+Por ejemplo:
+
+body{
+	margin: 0;
+}
+
+.box{
+	width: 100px;
+	height: 100 px;
+	background: red;
+	margin: 10px;
+}
+
+.box-default{
+	padding: 25px;
+	border: 10px solid black;
+}
+
+.new-box{
+	box-sizing: border-box;
+	padding: 25 px;
+	border: 10 px solid black;
+}
+
+Lo que pasa aqui es que en la primer caja aumenta su tamaño ya que le incluimos las propiedades padding y border por lo que se excede del tamaño que le habíamos otorgado de 100 x 100 px ya que SOLAMENTE se había otorgada esa medida al contenido, por lo que las otras propiedades se sigan sumando al tamaño de la caja.
+
+Y en new-box lo que estamos poniendo con la propiedad border box es especificarle que se tienen que adaptar a la medida que le dimos a la caja. Por lo que será 100 x 100 px de nuestra caja en total sumándole todas las medidas, por lo que nuestras propiedades se tendrán que adaptar al total de nuestra caja.
+
+
+	COLORES
+
+Existen diferentes formas de dar color.
+
+	RGB
+
+(Red, Green and Blue) tiene 256 posibles combinaciones por cada color primario.
+
+Pide 3 valores tiene que estar entre 0 a 255, debemos definir la cantidad de cada uno que le echaremos al valde por así decirlo.
+
+Se utiliza de la siguiente manera:
+
+background: rgb(red, green, blue);
+
+Por ejemplo:
+
+Si esta de la siguiente manera:
+
+background: rgb(255, 0, 0); = un rojo potente
+
+background: rgb(0, 255, 0); = un verde potente
+
+background: rgb(0, 0, 255); = un azul potente
+
+Y así podemos jugar con las combinaciones para obtener diferentes colores, por ejemplo:
+
+ background: rgb(255, 0, 100); = un rosa fiusha
+
+Se puede utilizar la pagina:
+
+https://rgbacolorpicker.com
+
+Para poder tener visualmente los colores y no tener que estar probando combinaciones tras combinaciones.
+
+
+	RGBA
+
+(Red, Green, Blue and Alfa), alfa controla la opacidad del conjunto de las tres capaz.
+
+Por lo que es lo mismo que el anterior solamente que te pide un 4to valor
+
+Ese 4to valor va del 0 (transparente) a 1 (opaco)
+
+Por ejemplo:
+
+background: rgb(255, 0, 100,0.3); = un rosita bastante cálido
+
+
+	HEXADECIMAL
+
+Es lo mismo solamente que se utiliza el valor en hexadecimal
+
+Se utiliza:
+
+background: #00ff00; = seria un verde potente
+
+	¿porque?
+
+Le estamos indicando que queremos 0 rojo, todo verde, y 0 azul
+
+Por lo que se separan en 3 partes
+
+#EE09FF
+
+Los primeros 2 son parte de la primera parte, y tiene 2 valores
+Los 3 y 4 son parte de la segunda parte, e igual tiene 2 valores
+Y los últimos 2 son parte de la ultima parte, e igual tienen 2 valores
+
+Donde al definir el primer valor, estamos definiendo entre los 16 posibles (rojos, verdes azules) que hay, y al indicar el segundo valor indicamos cual de los 16 tonos intermedios queremos.
+
+Por lo que podemos definirlo solo con 3 valores, o con mas de 3 si queremos un color mas especifico.
+
+Por ejemplo:
+
+background: #48e; = este seria un valor azul marino claro.
+
+Y si queremos modificar la opacidad del color, tenemos que agregarle el 4to valor
+
+El 4to valor va del 0 (transpartente) al F (opaco)
+
+background: #48e6; = seria un color azul marino claro con una opacidad neutra.
+
+Podemos utilizar la siguiente pagina para apoyarnos y no tener que combinar hasta encontrar el color deseado:
+
+https://htmlcolorcodes.com/color-picker/
+
+
+	EJEMPLO COLOR UTILIZANDO PROPIEDADES DE TEXTO
+
+CODIGO HTML:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primerEstilo.css">
+</head>
+<body>
+    <div class = "box"> TEXTO </div>
+</body> 
+</html> 
+
+CODIGO CSS:
+
+.box{
+	padding: 20px 50px;
+	background: #d1024e44:;
+	margin: 20px;
+	margin-left: 100px;
+	text-align: center;
+	color: #a6026c;
+	border-top: 2px solid #a6026c;
+	font-family: sans-serif;
+	font-weight: bold;
+}
+
+	Y quedaria una caja muy estética, con color, borde con color, y color en la letra..
+
+	HSL
+
+background: hsl(hue, saturation, lightness);
+
+Hue = al bucar hue color picare nos ayuda a orientarnos, ya que en que se pone el grado deseado, 
+	por ejemplo: 0 grados = rojo
+
+Saturation = se pone la saturation en porcentaje 100% es todo saturado y 0% es nada saturado.
+
+Lightness = la iluminación o luminaria, 0% es nada saturado (da la versión del color, la mas fuerte o mas baja)
+
+Un ejemplo seria:
+
+Codigo html:
+
+<body>
+    <div class = "box"> TEXTO </div>
+</body> 
+
+Donde creamos una caja
+
+Codigo css:
+
+.box{
+    padding: 50px;
+    background: hsl(210,40%,35%);
+    margin: 20px;
+    margin-left: 100px;
+    text-align: center;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+Le damos color a la caja, y a la letra de la caja, cambiamos el tipo de letra, centramos el texto dentro de la caja y le damos un margen en la pagina
+
+	HSLA
+
+Es lo mismo que el anterior pero el 4to valor sigue siendo la opacidad.
+
+
+	UNIDADES DE MEDIDA
+
+Todos los tipos de medidas que hay (absolutas, relativas, que usar en cada caso, etc)
+
+	VALORES ABSOLUTOS
+
+Se utilizan cuando necesitamos tener control y ser precisos (imagenes) no es la mejor opción para diseños responsives (que se pueda ver en cualquier dispositivo)
+
+
+	LOS PIXELES
+
+Son medidas absolutas, la parte mas mínima de luz de la pantalla es el pixel, (se utiliza para el tamaño del ancho y alto de las imágenes, o el tamaño de los textos (tipografia), márgenes y paddings)
+
+	
+	MILIMETROS, CM Y PULGADAS
+
+Es para utilizar medidas que en la vida real tienen un significado, ya que al imprimirlo serán exactamente la medida que utilicemos. Por lo que se utilizan para cosas de la vida real físicas y absolutas. Tambien se usan para maquetar interfaces táctiles, una aplicación que tiene que tocar en tiempo real.
+ 
+
+MILIMETROS:
+
+Se utiliza el mm
+
+Fontsize: 20mm;
+
+
+CENTIMETROS
+
+Se utiliza el cm
+
+Fontsize: 20 cm;
+
+
+Pulgadas
+
+Se utiliza in
+
+Fontsize: 20 in;
+
+
+	UNIDADES RELATIVAS
+
+Valor que depende de otro valor, un contenedor dentro de otro contenedor.
+
+
+	PORCENTAJE
+
+El porcentaje es respecto al contenedor que lo contiene.
+
+No se utilizan porcentajes en medidas de TEXTO.
+
+Los porcentajes no se suelen usar en margins, paddings o tamaño de letra.
+
+
+	EM
+
+La mejor forma de definir muchas cosas, va a ser igual al fontsieze del contenedor padre. 1 em es igual a el valor de la caja padre, 2 em será el doble del valor del texto de la caja padre y así sucesivamente. 
+
+Si el elemento padre no tiene definido un Font size busca el elemento mas padre hasta que encuentre un fontsize, ejemplo:
+
+Si un div no tiene Font size, se buscara el mas arriba, por ejemplo body.
+
+Se utiliza:
+
+Font-size: 2 em;
+
+
+	REM
+
+Es lo mismo de em pero en lugar del elemento padre, busca el elemento raíz.
+
+
+VIEW PORT 
+
+Si queremos darle un height o un width del tamaño de lo que podemos ver dela pagina , tenemos que utilizar.
+
+Heigth: 50vh; 
+
+En cambio si queremos que sea el widht del total que podemos ver de la pagina se utiliza:
+
+Widht: 50vw;
+
+Se puede utilizar para tipos notificaciones, al salir cuadros como en YouTube al subir un video que sale un cuadro, entre otras cosas. Ya que se adapta a cualquier tamaño.
+
+
+	VMAX Y VMIN
+
+Hace una comparación entre el height y el width y dar el mas grande, si el mas grande es heigth = 1 max = 1 vh , el vmax será el mas grande y el vmin será el mas chico
+
+
+	CUANDO USAR CADA UNO
+
+Para tamaño fuente, espaciado, tipografia en general em y rem son ideales
+
+Para armar el layout o las dimensiones de los elementos se suelen usar porcentajes, em, rem, o viewport height, viewport weight. No es siempre, pero son los mas recomendados.
+
+Si queremos resolución exacta usamos pixeles.
+
+Para bordes se utilizan pixeles.
+
+Para Font size se puede utilizar em
+
+
+	FONDOS (BACKGROUND)
+
+¿Que cosas podemos hacer con los fondos?
+
+Se puede utilizar.
+
+
+	TRANSPARENCIA
+
+Se puede utilizar para darle una vista estética a la ventana de atrás de una ventana de notificación por ejemplo, al ponerle un color negro y una transparencia se seguirá viendo la capa de atrás pero con una menor iluminación.
+
+	BACKGROUND IMAGE
+
+Si queremos poner una imagen de fondo solamente tenemos que poner:
+
+Background: url('imagen.png') no-repeat;
+
+Se utiliza usando un div y creamos una caja, y ahi estara una caja sin embargo tendrá un fondo de la imagen, así es como se implementan las imágenes
+
+Para esto, tenemos otras propiedades, por ejemplo:
+
+BACKGROUND SIZE
+
+Se utiliza el 100% para que sea el tamaño completo del elemento.
+
+3 VALORES MUY COMUNES 
+
+CONTAIN
+
+Lo que hace es obligar al contenedor a que la imagen entre, intenta que el espacio que le dimos entre la imagen aunque sea una vez.
+
+Se utiliza:
+
+Background-size: contain;
+
+
+	COVER
+
+Lo que hace es adaptarse la imagen a su tamaño original en la caja.
+
+Background: size; 
+
+Sin embargo, puede que no se vea nada ya que la caja es menor al tamaño de la imagen, pero podemos utilizar:
+
+
+	BACKGROUND-POSITION
+
+Sirve para modificar el background (la imagen) en la caja.
+
+Se utiliza:
+
+Para centrar:
+
+Background-position: center;
+
+
+Para poner la parte izquierda:
+
+Background-position: left;
+
+
+Para poner la parte derecha:
+
+Background-position: right;
+
+
+Para poner la parte de abajo.
+
+Background-position: bottom;
+
+
+Para poner la parte de arriba:
+
+Background-position: top;
+
+
+Todo esto también funciona indicándole en pixeles:
+
+Background-position: 100px;
+
+Sin embargo es algo raro.
+
+
+	BACKGROUND-REPEAT
+
+Background-repeat: no-repeat;
+
+Y esto hace que la imagen no se repita y solo se ponga una sola vez.
+
+
+	BACKGROUND-ATTACHMENT
+
+
+FIXED
+
+Se utiliza:
+
+Background-attachment: fixed;
+
+Y lo que hace es que la imagen se adapte al scroll. Si bajamos se ve mas arriba de la imagen, y si subimos se ve mas abajo de la imagen, y la imagen siempre estará fija
+
+Este sirve para darle un efecto muy lindo
+
+Un ejemplo seria:
+
+CODIGO HTML:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Probando css </title>
+    <link rel="stylesheet" href="primerEstilo.css">
+</head>
+<body>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat labore accusantium placeat nemo mollitia modi dignissimos cum repellendus, voluptas suscipit. Deserunt suscipit explicabo aliquid et necessitatibus perspiciatis magnam in hic?</div>
+    <div class=" box"></div>
+    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque numquam harum molestiae rerum tenetur provident dolorum cupiditate maxime magni! Nam illum excepturi expedita incidunt fugit quis nemo sed repudiandae nihil. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ea atque obcaecati iusto voluptate! Ipsum aspernatur animi et laudantium doloremque unde vel? Nulla impedit porro facilis assumenda omnis earum commodi. 
+
+<div class=" box">
+<div class = "opaco"> HOLA </div>
+</div>
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut modi quaerat eum quo rem accusamus maiores. Voluptatem labore, temporibus harum cupiditate est sed officiis provident fuga in molestiae qui reprehenderit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore amet placeat quas iure voluptate animi, magnam fugit nulla soluta accusantium laborum fugiat laboriosam illum aperiam. Id, magnam consequuntur. Molestias, eligendi!</div>
+</body> 
+</html> 
+
+CODIGO CSS:
+
+Body{
+	background-color: #48e;
+	margin: 0;
+	font-family: sans-serif;
+	color: #fff;
+}
+
+.box{
+	width: 100%;
+	height: 100px;
+	margin: 20px;
+	margin: 0;
+	background-image: url("ejemplo");
+	background-size: cover;
+	background-position: top;
+	background-attachment: fixed;
+}
+
+.opaco{
+	height: 100%;
+	width: 100%;
+	background-color: #000a;
+}
+
+
+LOCAL
+
+Hace que la imagen no se salga del contenedor 
+
+
+	BACKGROUND
+
+Es el complemento de todo lo visto anteriormente
+
+Background: ;
+
+
+Primero nos pide la imagen (url)
+
+Después la posición.
+
+Después el size.
+
+Después el repeat o no repeat.
+
+Después el attachment
+
+Y al final el color.
+
+Por lo que esto:
+
+background-image: url("ejemplo");
+background-size: cover;
+background-position: top;
+background-attachment: fixed;
+
+Es lo mismo a decir, esto:
+
+Background: url("ejemplo") top cover fixed #6fa;
+
+Solamente que entre el top y el cover (osea después del background position y el background size debemos de poner la barrita "/")
+
+Por lo que debería quedar, así:
+
+Background: url("ejemplo") top / cover fixed #6fa;
+
+
+	GRADIENTES
+
+Los gradientes es un color que comienza siendo uno, y termina convirtiéndose en otro. 
+
+Para esto se utiliza la propiedad:
+
+background: ; o la propiedad background-image: ;
+
+
+GRADIANTES LINEALES
+
+Se utiliza:
+
+Background: linear-gradient()
+
+Esto es una función la cual pide un parámetro para hacer algo, pide 2 parámetros, (el primer color y el segundo color)
+
+Por ejemplo, así:
+
+.box{
+    width: 400px;
+    height: 400px ;
+    background-color: red;
+    background: linear-gradient(#000,transparent);
+}
+
+Sirve para darle efectos a nuestra pagina
+
+Si queremos que en lugar de ir de arriba a abajo el degradado, solamente tenemos que indicar antes de los 2 colores de donde hacia donde va el degradado, por ejemplo:
+
+.box{
+    width: 400px;
+    height: 400px ;
+    background-color: red;
+    background: linear-gradient(to right, #000,transparent);
+}
+
+También a los valores (colores) que damos podemos indicarle que tanto queremos de cada uno. Por ejemplo:
+
+.box{
+    width: 400px;
+    height: 400px ;
+    background-color: red;
+    background: linear-gradient(to right, #000 30% ,transparent);
+}
+
+Donde el 30% de la caja será negra, y el resto (70%) será transparente.
+
+GRADIENTES RADIAL
+
+Es una especie de viñeta, es bastante lindo para efectos muy puntuales. Hace un gradiente hacia el centro.
+
+Por lo que define un radio y gira sobre el radio, en la parte del medio hay un color y en la parte del borde de otro color.
+
+Se utiliza:
+
+Background: radial-gradient(green, #000a)
+
+	
+GRADIANTE CONIC
+
+Empiézanos en un movimiento en medio y hace un círculo sobre su propio eje, y queda el color expandido en esa vuelta.
+
+
+	SOMBRAS 
+
+Las sombras son muy importantes ya que agregan profundidad y realismo a cualquier elemento, ademas de producir una jerarquía visual y mejorar la legibilidad.
+
+Existen 3 tipos de sombras:
+
+- La sombra que le damos a una caja = boxshadow
+- La sombra que le damos al texto = textshadow
+- La sombra que le damos a un componente x = dropshadow
+
+	
+	BOX SHADOW
+
+Box-shadow: ; 
+
+Primer parámetro es cuantos pixeles queremos que se corra la sombra horizontalmente
+
+Después cuanto se corre la sombra de forma vertical
+
+Después cuanto queremos de desenfoque de la sombra
+
+Después cuanto queremos que la sombra se expanda
+
+Y al final se agrega el color de la sombra
+
+Se le puede dar tanto valores positivos como valores negativos
+
+Un ejemplo sencillo seria así:
+
+
+CODIGO CSS:
+
+.box{
+    width: 400px;
+    height: 400px ;
+    background-color: #e2e2e2;
+    box-shadow: 20px 20px 50px 10px #000;
+}
+
+El parametro mas importante (mas utilizado) es el desenfoque de la sombra.
+
+
+	IMAGENES CON SOMBRA 
+
+También se le puede dar sombra a imágenes utilizando lo mismo que a una caja.
+
+.box{
+    width: 400px;
+    height: 400px ;
+    background-color: #e2e2e2;
+    box-shadow: 20px 20px 50px 10px #000;
+}
+
+
+SOMBRA A IMAGENES PNG 
+
+También se pueden dar sombras a imágenes sin fondo (.png) 
+
+Solamente se debe utilizar:
+
+Filter: drop-shadow(0px 0px 3px #000)
+
+
+	TEXT SHADOW
+
+Esto es para darle sombra al texto
+
+Text-shadow: ;
+
+
+Primer parámetro es cuantos pixeles queremos que se corra la sombra horizontalmente
+
+Después cuanto se corre la sombra de forma vertical
+
+Después cuanto queremos de desenfoque de la sombra
+
+Y al final el color
+
+
+
+OJO A LOS ELEMENTOS NO ES TAN NECESARIO PONERLE UN WIDTH YA QUE SE ACOMODA SOLO.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

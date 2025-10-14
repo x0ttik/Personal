@@ -1,0 +1,984 @@
+HTML es como trabajar con cajas, una caja adentro de otra con un contenido al lado de otra con otro contenido 
+
+	ESTRUCTURA BASCIA HTML
+
+Para poner la estructura basica de html simplemente debemos poner (!) + Tab.
+
+¿Cual es la estructura básica de HTML?
+1. <!DOCTYPE html> = Siempre se debe poner ya que indica que es una estructura en html
+2. <html lang = "es"> = Sirve para indicar el idioma de la pagina
+3. <head> = Tiene lo que no se ve, el titulo de la pagina en la pestaña por ejemplo
+4. <body> = contiene todo lo que se ve de la pagina
+
+Por lo que una estructura básica se ve así:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+El lang = " "; = indica el idioma en el que esta nuestra pagina.
+
+Para escribir en varios renglones debemos de apretar alt y los lugares donde queramos que se escriba lo mismo.
+
+<h1> </h1> nos sirve para poner títulos en la pagina
+
+Existe de h1 a h6 nada mas, y mientras mas bajo el numero mayor es el tamaño
+
+Para una buena practica el h1 solo tiene que estar una vez, el h2,h3 y h4 moderado, h5 y h6 ilimitado
+
+ 	ETIQUETAS DE TEXTO 
+
+<p> </p> = Proviene de párrafo
+
+<b> </b> = Se escribe en negritas
+
+<i> </i> = Italica
+
+<strike> </strike> = Tachada
+
+<small> </small>
+
+
+
+Identar el codigo = ordenarlo
+
+
+
+Las etiquetas h1-h6 y la <p> sea del tamaño que sea se toma en cuenta como un solo renglón ya que completa la linea, en cambio, las <b>, <i>, <strike>, etc. se ajustan al tamaño 
+
+<div> nos sirve para dividir el cuerpo y que se ajuste el tamaño a la caja que lo contiene
+
+
+	DIREECCIONAR A OTRA PAGINA HTML 
+
+La etiqueta <a> nos sirve para redirigir a otra pagina
+
+Por ejemplo: 
+
+<a href = " " > Click Aquí </a> = la etiqueta <a> tiene un atributo donde te pide la referencia de a donde ira, en las comillas ponemos el link. (Ejemplo: href = "facebook.com").
+
+
+Existen 2 tipos de rutas: 
+
+Rutas locales: las que están en nuestra carpeta local.
+
+Rutas externas: las que no tenemos de manera local.
+
+En una utilizamos un protocolo: http / https, mientras que en otra accedemos referimos localmente al recurso
+
+	RUTA EXTERNA
+Para direccionar una ruta externa tenemos que poner dentro de las comillas de nuestro atributo 
+<a href="https://">
+Y siguiente ponemos la pagina
+
+Por ejemplo:
+<a href="https://facebook.com"> Click Aqui </a> 
+En donde en nuestra pagina, nos direccionara a facebook
+
+	RUTA LOCAL
+Para direccionar a una ruta local tenemos que poner directamente la dirección de la pagina
+
+Por ejemplo:
+<a href="pagina2.html"> Click Aqui </a> 
+
+En el caso que sea una ruta local, pero este dentro de una carpeta, simplemente antes de direccionar a la pagina ponemos el nombre de la carpeta seguido de un "/"
+
+Por ejemplo:
+
+<a href="Cosas/pagina2.html"> Click Aqui </a> 
+
+
+	REGRESO A PAGINA ANTERIOR 
+
+Sin embargo, si nos direcciona a la dirección correcta, pero al tratar de volver no nos lo permite ya que, en la carpeta que estamos no existe el archivo de la pagina anterior, es por ello que tenemos que poner ".. /" Esto lo que hace es regresarnos una carpeta para atrás.
+
+Por ejemplo:
+
+<a href="../index.html"> Volver</a>
+
+Donde nos dice que vamos a regresar al archivo index de la carpeta anterior (En este caso es la original)
+
+A continuación un ejemplo sencillo de todo lo aprendido:
+
+<!DOCTYPE html>
+<html >
+<head>
+    <title>PRIMERA PAGINA WEB</title>
+</head>
+<body>
+    <h1> Mi pagina web</h1>
+    <h2> Subtitulo de mi pagina web </h2>
+    <p> Estoy tratando de mejorar mi <b> conocimiento </b> en la <i> programación.</i> Haz <a href="https://www.youtube.com/watch?v=HiVnGgYudLY"> Click aquí </a> Para mas información </p>
+</body>
+</html>
+
+En donde estoy poniendo:
+-Un titulo
+-Un subtitulo
+-Un párrafo y poniéndole algunas palabras en negritas e itálicas usando etiquetas de texto
+-Direccionando hacia un link usando <a href "">
+
+	SALTO DE LINEA EN HTML
+
+Para hacer que un texto de un salto de linea, utilizamos la etiqueta <br> la cual sirve para completar lo que falta de la linea
+
+Utilizando el mismo ejemplo anterior pero con <br> antes del direccionamiento:
+
+<!DOCTYPE html>
+<html >
+<head>
+    <title>PRIMERA PAGINA WEB</title>
+</head>
+<body>
+    <h1> Mi pagina web</h1>
+    <h2> Subtitulo de mi pagina web </h2>
+    <p> Estoy tratando de mejorar mi <b> conocimiento </b> en la <i> programación.</i> <br> Haz <a href="https://www.youtube.com/watch?v=HiVnGgYudLY"> Click aqui </a> Para mas información </p>
+</body>
+</html>
+
+
+	LISTAS EN HTML
+
+Existen 2 tipos de listas.
+
+	LISTAS DESORDENADAS
+<ul> 
+	<li>  </li>
+</ul>
+
+Donde <ul> podría verse como un papel, y <li> seria lo que escribimos.
+
+Si queremos agregar varios elementos ósea varias etiquetas <li> </li> , podemos hacerlo escribiendo li*n
+
+Donde:
+li = la etiqueta para agregar elementos
+n = el numero de elementos que queramos
+
+	LISTAS ORDENADAS
+<ol>
+	<li> </li>
+</ol>
+
+Donde <ol> seria la lista ordenada (enumerada), y <li> seria lo mismo en ambas.
+
+
+	FOTOS EN HTML 
+
+Para agregar una imagen se debe usar la etiqueta <img>, sin embargo con esta etiqueta no es necesario cerrar la etiqueta. 
+
+	FOTOS EN RUTAS EXTERNAS:
+
+Por lo que si usamos una ruta externa quedaría como:
+
+<img src = "https://www.elpalaciodehierro.com/on/demandware.static/-/Sites-palacio-master-catalog/default/dw3902134a/images/41383191/large/41383191_x1.jpg " width="100px>
+
+	FOTOS EN RUTAS LOCALES:
+
+En cambio si es una ruta local:
+
+<img src = "gorraPsychoBunny.jpg " width="100px>
+
+
+	VIDEOS EN HTML
+
+También es posible poner videos, en donde simplemente se debe poner la etiqueta pero a diferencia de poner una imagen, en esta si debemos de cerrar la etiqueta.
+
+<video src = " "> </video>
+
+En donde debemos de poner entre las comillas un link, que debe tener un formato de video, ya sea mp4, Avi, mov, o un archivo local.
+
+Al poner un video debemos agregar la etiqueta controls = " ", la cual básicamente son los controles predeterminados de un video. (Pausa/reanudar, sonido, expandir video).
+
+	VIDEOS RUTA EXTERNA
+
+Por lo que tendría que estar de la siguiente manera, en el caso de una ruta externa:
+
+<video src = "http://ejemplovideo.mp4" controls = " ">
+
+
+	VIDEOS RUTA LOCAL
+
+En el caso de un video de una ruta local quedaría de la siguiente manera:
+
+<video src = "videoEjemplo.mp4" controls = " "> </video>
+
+
+	AUDIOS EN HTML
+
+También es posible poner audios, de la misma manera que un video, simplemente cambiando la etiqueta.
+	
+	AUDIOS RUTA EXTERNA
+
+En el caso de una ruta externa:
+
+<audio src = "http://ejemploAudio.ogg" controls = " "> </audio>
+
+	AUDIOS RUTA LOCAL
+
+En el caso de un audio de una ruta local quedaría de la siguiente manera:
+
+<video src = "ejemploAudio.ogg" controls = " "> </audio>
+
+
+	DIVS 
+
+A nivel estructural es importante trabajar con divs, ya que se trata de separar y agrupar contenido. En el cual si bien no es tan importante al trabajar en html, es muy importante a la hora de implementar css.
+
+En donde usamos el <div> </div>, por ejemplo para separar dentro de la pagina diferentes productos.
+
+Basicamente es para crear diferentes cajas de texto, en una misma caja.
+
+En donde un ejemplo de esto seria:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Tienda de gorras </title>
+</head>
+<body>
+	<h1> Las mejores gorras de Tijuana </h1>
+	<div>
+		<h4> Gorra psyco bunny </h4>
+		<p> Precio: <i> $699 </i> </p>
+        <img src = "gorraPsychobunny.jpeg" width="100px">
+	</div>
+    <div>
+		<h4> Gorra Armani </h4>
+		<p> Precio: <i> $699 </i> </p>
+        <img src = "gorraArmani.webp" width="100px">
+	</div>
+</body>
+</html>
+
+
+	FORMULARIOS
+
+Se utiliza la etiqueta:
+<form>  </form>
+
+Donde el atributo mas importante es:
+
+Action = " "
+
+Por lo que se veria asi:
+
+<form action = ""> </form>
+
+El action lo que hace es indicarle que para si se completa el formulario.
+
+A continuación un ejemplo:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Creacion de cuenta</title>
+</head>
+<body>
+        <form action="index.html">
+            <h5> Nombre: <input type="text" required = ""></h5>
+            <h5> Apellido: <input type="text" required = " "></h5>
+            <h5> Fecha de nacimiento: <input type = "date" required = " "></h5>
+            <h5> Correo: <input type="email" required = ""></h5>
+            <h5> contraseña: <input type="password" required = " " ></h5>
+            <input type = "submit" value="Crear"> </a>
+        </form>
+</body>
+</html>
+
+Existe el atributo method = " ", en los formularios. En el caso de no especificarse un método se utilizara de manera predeterminada el método get.
+
+	METHOD GET
+
+Donde los datos que ingrese el usuario se envían y se adjuntan en la URL.
+
+	METHOD POST
+
+Donde los datos que Ingrese el usuario no son visibles en la url, este se usa cuando son datos mas sensibles.
+
+
+	FORMULARIO INPUT 
+
+Los formularios sirven para recolectar los datos personales de los usuarios interesados.
+
+
+	ETIQUETA DE FORMULARIOS
+
+En donde esta etiqueta contiene los atributos <input type = " " name = " ">
+
+El input es algo que da el usuario.
+
+El name sirve para identificar el valor, es como otorgarle una variable. Sin embargo no es tan importante.
+
+En donde el tope es que clase de entrada es, en el caso de no especificar que tipo de entrada es automáticamente lo toma como texto.
+
+
+	TIPOS DE INPUT 
+
+Tenemos diferentes tipos de entradas, por ejemplo:
+<input type = "text" > , = Permite que el usuario ingrese un texto
+<input type = "password" > , = Permite que el usuario agregue una contraseña
+<input type = "number" > , = Permite que el usuario ingrese un numero
+<input type = "email" > , = Permite que el usuario ingrese un correo
+<input type = "color" > , = Permite seleccionar un color cualquiera
+<input type = "range" min = "10" max = "100"> , = Nos permite seleccionar un rango, y podemos 								asignar el mínimo y el máximo.
+<input type = "date" > , = Permite poner una fecha
+<input type = "time" > , = nos permite poner una hora.
+<input type = "button" value = "Boton"> , = Siempre tiene que tener un value que es lo que nos 							regresara el botón y es el que estará escrito 								dentro del botón.
+
+<input type = "submit" > , = Es el que permite enviar los datos.
+
+¿Cual es la diferencia entre button y submit?
+
+Basicamente es que el submit es un valor predeterminado, por lo que por defecto siempre dira enviar por defecto, en el idioma en el que te encuentres.
+En cambio el button no tiene un valor incluido por lo que si no le asignas uno, simplemente será un botón.
+
+
+	EJEMPLO DE UN FORMATO 
+
+Un ejemplo utilizando estos formatos seria el siguiente:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Tienda de gorras </title>
+</head>
+<body>
+	<h1> Las mejores gorras de Tijuana </h1>
+    <div> 
+        <h4> INICIAR SESION</h4>
+        <p> Correo <br> 
+            <input type = "email" ><br> 
+            Contraseña <br> 
+            <input type = "password"><br> <br>
+            <input type = "submit"> <br>  
+        </p>
+    </div>
+	<div>
+		<h4> Gorra psyco bunny </h4>
+		<p> Precio: <i> $699 </i> </p>
+        <img src = "gorraPsychobunny.jpeg" width="100px">
+	</div>
+    <div>
+		<h4> Gorra Armani </h4>
+		<p> Precio: <i> $699 </i> </p>
+        <img src = "gorraArmani.webp" width="100px">
+	</div>
+</body>
+</html>
+
+	ATRIBUTOS PARA LOS INPUTS 
+
+<input type = "email" required = " "> , = Lo que hace es que hace el campo obligatorio
+
+<input placeholder= "email" type = "email"> , = nos permite escribir texto TEMPORAL dentro de 								nuestros inputs.
+
+	FORMULARIOS TEXT AREA
+
+Se utiliza la etiqueta 
+
+<textarea> </textarea> , = El cual es un simple cuadro de texto.
+
+Para este existe el atributo:
+Readonly = " " , = El cual es un cuadro donde el usuario no puede ingresar nada, simplemente 				leer lo que escribimos nosotros.
+También existe el:
+
+Disable , = lo que hace es deshabilitar por completo el area de texto
+
+Maxlenght , = nos permite poner el máximo de caracteres permitido
+
+Rows , = cantidad de columnas que puede haber 
+
+
+	METADATOS
+
+Son especie de información que describe la información de un objeto. Un ejemplo seria la descripción de un video de YouTube, el titulo, etc. 
+
+Se utiliza la etiqueta <meta> , y se implementa en el <head> 
+
+Ya que es información describiendo otra información, no se vera en la pagina.
+
+	CHARSET
+
+Charset = "utf-8" , = Donde charset significa conjunto de caracteres. Y el "uta-8" es la 				codificación universal para que se acepten acentos, ñ, etc.
+
+<meta charset = "utf-8">
+
+	TIPOS DE META DEL TIPO NAME
+
+La estructura basica del meta seria
+
+<meta name = "tipo" content = "contenido" >
+
+	Tenemos diferentes tipos de name, por ejemplo:
+
+<meta name = "keywords" content = "ejemplo, ejemplo"> , = La cual es destacar ciertas palabras 								de nuestra pagina web, lo que ocasiona 								que si una persona ingresa en el 								buscador alguna palabra relacionada le 								dará cierta ventaja ante las demás 								paginas.
+
+<meta name = "description" content = " "> , = basicamente es describir la pagina, lo ideal es de  						70 a 140 caracteres.
+
+<meta name = "author" content = " "> , = Es para poner el autor de la pagina
+
+<meta name = "copyright" content = " "> , = Es para poner el nombre empresa registrada dueña de 						los derechos.
+
+	META ROBOTS
+
+El tipo meta = "robots" se divide en varias etiquetas, por ejemplo:
+
+	INDEXADA O NO INDEXADA
+
+<meta name = "robots" content = "index"> , = Sirve para indicar a la pagina si es indexada o no.
+
+	¿Que significa si esta indexada o no?
+
+	Si esta indexada básicamente significa que este abierta al publico.
+
+Sin embargo, si no esta indexada estaria como:
+
+<meta name = "robots" content = "noindex">
+
+	FOLLOW O NO FOLLOW
+
+<meta name = "robots" content = "follow"> , = Esto nos indica que los enlaces de otras paginas 							pueden ser seguidos desde nuestra pagina.
+		
+<meta name = "robots" content = "nofollow"> , = Esto nos indica que la pagina no seguirá otros 							enlaces fuera de nuestra pagina.
+
+
+	DEFINIR HTML SEMANTICO 
+
+Esto es para ver la estructura correcta de una pagina.
+
+Empezamos por:
+
+Header: Se trata del encabezado de la pagina.
+
+Nav: Se trata del navegador de la pagina, por ejemplo: barra de busqueda, para iniciar sesión, etc.
+
+	El header y el nav deben de estar juntos.
+
+Article: Podría ser el titulo del articulo, y se separa en secciones.
+
+Section: Contenido principal.
+
+Aside: Que es el contenido secundario,
+
+Futher: Pie de pagina
+
+
+	HEADER / NAV 
+
+El reader tiene que estar en todas las paginas de nuestra web, ya que es algo que nunca cambia de posición sin importar en donde estemos.
+
+	EJEMPLO HEADER / NAV
+
+A Continuación un ejemplo basico utilizando el header y el nav:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header> 
+        <nav> 
+            <ul> 
+                <li> <a href = "Aprender.html"> Inicio</a> </li>
+                <li> <a href = "iniciarSesion.html"> Mi cuenta</a> </li>
+                <li> <a href = "nosotros.html"> </a> Sobre nosotros </li>
+            </ul>
+        </nav>
+    </header>
+    
+</body>
+</html>
+
+
+	ARTICLE
+
+El article (articulo), nos ayuda a que la información este dentro de algo y no solo en el <body>. 
+
+Utilizando la etiqueta:
+
+<article> </article>
+
+Esto también nos sirve para seccionar los diferentes artículos que tengamos. Sin embargo, aunque sea solo un articulo debemos usar el section ya que es la manera correcta semánticamente. 
+
+Y esto se logra utilizando la etiqueta:
+
+<section> </section>
+
+	EJEMPLO ARTICLE
+
+Un ejemplo sencillo utilizando el article seria el siguiente:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <header> 
+        <nav> 
+            <ul> 
+                <li> <a href = "Aprender.html"> Inicio</a> </li>
+                <li> <a href = "iniciarSesion.html"> Mi cuenta</a> </li>
+                <li> <a href = "nosotros.html"> </a> Sobre nosotros </li>
+            </ul>
+        </nav>
+    </header>
+    <article> 
+        <section>
+            <h1>
+                ¿QUIENES SOMOS?
+            </h1>
+            <p>
+                Somos una empresa que busca dar calidad y originalidad a todos nuestros productos.
+            </p>
+        </section>
+    </article>
+</body>
+</html>
+
+	
+	ASIDE
+
+El aside seria basicamente informacion que no es la información principal, por lo que se encuentra dentro de otro articulo a un costado de la sección del articulo principal.
+
+Utilizando la etiqueta:
+
+<aside> </aside>
+	
+	EJEMPLO ASIDE
+
+Un ejemplo utilizando el mismo código anterior implementando el aside seria:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <header> 
+        <nav> 
+            <ul> 
+                <li> <a href = "Aprender.html"> Inicio</a> </li>
+                <li> <a href = "iniciarSesion.html"> Mi cuenta</a> </li>
+                <li> <a href = "nosotros.html"> </a> Sobre nosotros </li>
+            </ul>
+        </nav>
+    </header>
+    <article> 
+        <section>
+            <h1>
+                ¿QUIENES SOMOS?
+            </h1>
+            <p>
+                Somos una empresa que busca dar calidad y originalidad a todos nuestros productos.
+            </p>
+        </section>
+    </article>
+    <article>
+        <aside>
+            <h3> ¿Necesitas un poco de ayuda?</h3>
+            <p>
+                Escribemos a nuestras redes sociales y con gusto te ayudaremos. <br>
+                <ul>
+                    <li> <a href=" "> Facebook sin link </a></li>
+                    <li> <a href=""> Instagram sin link </a></li>
+                    <li> <a href=""> Whatsapp sin link </a></li>
+                </ul>
+            </p>
+        </aside>
+    </article>
+</body>
+</html>
+
+
+	FOOTER
+
+El footer es simplemente el pie de pagina.
+
+Se utiliza la etiqueta:
+
+<footer> </footer>
+
+	EJEMPLO FOOTER
+
+Un ejemplo utilizando el mismo código anterior pero implementando el footer seria:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <header> 
+        <nav> 
+            <ul> 
+                <li> <a href = "Aprender.html"> Inicio</a> </li>
+                <li> <a href = "iniciarSesion.html"> Mi cuenta</a> </li>
+                <li> <a href = "nosotros.html"> </a> Sobre nosotros </li>
+            </ul>
+        </nav>
+    </header>
+    <article> 
+        <section>
+            <h1>
+                ¿QUIENES SOMOS?
+            </h1>
+            <p>
+                Somos una empresa que busca dar calidad y originalidad a todos nuestros productos.
+            </p>
+        </section>
+    </article>
+    <article>
+        <aside>
+            <h3> ¿Necesitas un poco de ayuda?</h3>
+            <p>
+                Escribemos a nuestras redes sociales y con gusto te ayudaremos. <br>
+                <ul>
+                    <li> <a href=" "> Facebook sin link </a></li>
+                    <li> <a href=""> Instagram sin link </a></li>
+                    <li> <a href=""> Whatsapp sin link </a></li>
+                </ul>
+            </p>
+        </aside>
+    </article>
+    <footer>
+        <h4> Copyright - Todos los derechos reservados</h4>
+    </footer>
+</body>
+</html>
+
+
+	TABLAS EN HTML
+
+Las tablas en html son estructuras que tienen filas y columnas (una tabla común y corriente).
+
+En las que tenemos que almacenar en cada columna datos de un mismo tipo (nombres, links, edad).
+
+Se utiliza la etiqueta:
+
+<table> </table> 
+
+	PROPIEDADES
+
+Dentro tiene un atributo llamado Border, indica el ancho del borde en pixeles. Sin embargo es mejor dejarlo sin Border y utilizar css.
+
+
+	ETIQUETAS EN TABLAS
+
+<tr> </tr> , = Define una fiila dentro de la tabla.
+
+<th> </th> , = Define un encabezado de columna o fila, generalmente se usa para el encabezado de 			la tabla.
+
+<td> </td> , = Define un dato dentro de una celda de la tabla.
+
+
+
+
+	EJEMPLO TABLA EN HTML
+
+Un ejemplo de una table en html seria:
+
+<table border = 1>
+    <tr>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Pais</th>
+    </tr>
+    <tr>
+        <th>Juan</th>
+        <th>25</th>
+        <th>Argentina</th>
+    </tr>
+    <tr>
+        <td>Maria</td>
+        <td>30</td>
+        <td>España</td>
+    </tr>
+</table>
+
+
+	ATRIBUTO ALT
+
+Tenemos la etiqueta alt = "" , nos sirve para el SEO (Search Engine Optimization).
+
+Esta etiqueta nos sirve para poder ponerle nombre a la imagen sin importar si no se encuentra el archivo.
+ 
+	ATRIBUTO TITLE
+
+También tenemos la etiqueta title = " " la cual nos sirve para que si pasamos el mouse sobre la imagen, nos aparezca el nombre que nosotros le asignemos.
+
+	ETIQUETA CENTER
+
+<center> </center>
+
+La etiqueta center nos ayuda para centrar lo que esta entre ella, puede ser una imagen, una foto, etc.
+
+También se puede centrar una tabla pero solamente centra la tabla, no los datos de las celdas, para que centre los datos deben estar dentro del <td> </td>
+
+
+	ATRIBUTO ID / ATRIBUTO #
+
+El id es un atributo que nos permite identificar cada elemento. Ya sea un titulo, o algo especifico.
+
+Y el # nos permite direccionarnos a un elemento que este en la misma pagina de codigo.
+
+
+Por ejemplo: 
+
+<a href = "#codigo"> Click aquí para obtener el codigo> </a>
+
+<p> Este es un texto para distraer al usuario y que no encuentre el codigo. </p>
+
+<h2 id = "codigo"> El codigo es: 1234 </h2>
+
+
+Esto nos sirve en el caso que sea una pagina donde tengamos varias noticias, así el usuario puede saltarse partes que no sean necesarias.
+
+
+	COMO PONER ICONOS EN EL NOMBRE DE LA PAGINA
+
+Se utiliza la etiqueta <link rel = "icon" href = " " , y se coloca en el <head> </head> .
+
+Se coloca en el href la ruta de la imagen que deseamos poner y debe de tener el formato .ico
+
+Y el atributo del nos ayuda a indicar que tipo de relación tiene el recurso.
+
+	
+	COSAS A TOMAR EN CUENTA PARA APRENDER Y HACER BUENAS PRACTICAS EN HTML
+
+Es un lenguaje marcado de hiper texto, con el cual se estructuran sitios.
+
+	Primer error:
+
+Tratar que lo que hacemos en html se vea atractivo. Eso debe ser de solamente de css. En html solo debemos de estructurar correctamente.
+
+	Segundo error:
+
+No usar etiquetas obsoletas, ya que google no recomienda paginas que usen etiquetas obsoletas.
+
+	Tercer error:
+
+¿Como google posiciona mejor una pagina semánticamente correcta?
+
+No hacer estructuras sin sentido.
+
+No poner un div dentro de otro div a menos de que queramos darle estilo a los 2 de manera diferente.
+
+Diviloper.mozilla es contenido correcto
+
+	Cuarto error:
+
+No utilizar 2 lenguajes. No combinar html y darle estilo con css. 
+
+
+
+	HTML INTERMEDIO/AVANZADO 
+ 
+COMENTARIOS, METATAXES, FAVICONS
+
+
+	COMENTARIO
+
+Un comentario que escribimos pero solo es visible para el desarrollador. Si queremos dejar un comentario para otros desarrolladores, se hace de la siguiente manera:
+
+<!-- comentario -->
+
+	FAVICONS
+
+Es el icono que se encuentra arriba de una pagina.
+
+¡Como se hace?
+
+Tenemos que ir al <head>
+
+<Link rel = "icon" href = "icono.png" type = "image/png">
+
+Poner el type es algo recomendado para que el navegador entienda mas rápido la imagen, sin embargo sin eso tambien puede funcionar
+
+Deben ser imágenes que no sean pesadas, ya que son tan pequeñas que no importa la calidad, y así tiene mayor rapidez.
+
+
+	META DATOS (META TAGS)
+
+Su finalidad es describir ciertos aspectos de nuestra pagina web
+
+Estas van en el <head>
+
+
+META CHARSET 
+
+Se escribe:
+
+<meta charset = "UTF-8"> 
+
+Le dice al documento la codificación que utilizara, es un tipo de codificación que utiliza caracteres Unicode que permite todos los caracteres existentes en todos los idiomas.
+
+
+TODAS LAS DEMAS ETIQUETAS A CONTINUACION TIENEN DE ATRIBUTOS NAME Y CONTENT
+
+Por lo que seria:
+
+<meta name = "" content = "" >
+
+
+META VIEWPORT
+
+Se utiliza:
+
+<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+
+Donde el width=device-width:
+
+Le indica que es width (el ancho total de la pagina) será al ancho total del dispositivo, por lo que hace que nuestra pagina se adapte a cualquier dispositivo.
+
+Y el initial-scale=1.0:
+
+Lo que hace es que al inicializar la pagina el zoom este en 1 (100%) ósea que entre sin zoom.
+
+
+META DESCRIPTION
+
+Es describir la pagina web en un promedio de 100 caracteres
+
+Se utiliza:
+
+<meta name = "description" content = " [DESCRIPCION ESCRITA POR NOSOTROS]">
+
+
+META KEYWORDS
+
+Son las palabras paginas de nuestra pagina, si alguien busca en google una de estas palabras claves, le dara una alta prioridad (si tiene una buena sintaxis y buenas practicacs) 
+
+Se utiliza:
+
+<meta name = "keywords" content = "gorra, tenis, sudaderas, etc">
+
+
+META AUTHOR
+
+Es para indicar el autor de la pagina
+
+Se utilza:
+
+<meta name = "author" content = "Paul Toraya">
+
+
+META ROBOTS
+
+Etiqueta para que los motores de búsqueda la lean y sepan que hacer
+
+Si es nofollow:
+
+<meta name = "robots" content = "nofollow">
+
+Es para que no muestren nuestra pagina en los resultados de búsqueda
+
+
+Si es nosnippet:
+
+<meta name = "robots" content = "nosnippet">
+
+Es para que el navegador no tome un fragmento de nuestra pagina y lo muestre en el buscador
+
+
+Si es noarchive:
+
+<meta name = "robots" content = "no archive">
+
+Es para que no almacene una copia de nuestra pagina web en cache (esto se usa cuando es una pagina web que tiene cambios constantes)
+ 
+Si es noimageindex:
+
+<meta name = "robots" content = "noimageindex">
+
+Para que el navegador no indexe las imágenes
+
+Si es title:
+
+<meta name = "title" content = " ">
+
+Es para darle títulos a nuestra pagina
+
+
+OPEN GRAVE META TAGS
+
+Se utiliza: 
+
+<meta name = "OG: "> y el metadato (meta tag) deseado.
+
+Se utilizan para controlar cómo se comparte un enlace en las redes sociales, estas etiquetas permiten definir información específica sobre la página web, como el título, la descripción, la imagen y otros datos relevantes, que serán utilizados por las redes sociales al mostrar el enlace compartido.
+
+Se utiliza con:
+
+OG: title
+OG: image
+OG: description 
+OG: url
+
+Si queremos ver como se muestra cada red social, podemos utilizar:
+
+https://metatags.io
+
+Y nos muestra como se muestra un link en diferentes lugares (Facebook, YouTube, Pinterest, etc.)
+
+
+	TEXT AREA 
+
+Basicamente son como un input pero te permite agregar una mayor cantidad de texto.
+
+Se utiliza:
+
+<textarea> </textarea>
+
+Y se utilizan las mismas propiedades que un input 
+
+SOLO QUE el text área tiene por defecto configurado que no se utilice el 100% del width por sus propiedades, por lo que si queremos un width de toda la pantalla se utiliza (min-width)
+
+TAMBIEN tiene un atributo llamado:
+
+resize 
+
+Se puede utilizar de las siguientes maneras:
+
+Resize: both , = el cual permite extender el area de texto en el eje x y en el eje y
+
+Resize: vertical , = este solo permite que se desplace el area de texto en el eje vertical 
+
+
+Podemos darle min heigth y min width para hacer que haya una area de texto de un tamaño mínimo y de un tamaño máximo.
+
+Si queremos que se adapte automaticamente debemos utilizar el:
+
+Form-sizing: content , = lo que hace es que asusta el area del texto dependiendo el contenido 
+
+Resize: none , = hace que no podamos mover el text area para ningún lado, simplemente el valor que le otorgamos
+
+
+	LABELS
+
+Son etiquetas, pero que no permiten modificar el margin y el padding de estos ya que son elementos en linea.
+
+Nos permiten dar ciertas instrucciones sobre inputs por ejemplo. 
+
+Las etiquetas se pueden enlazar con los inputs , ¿como? Debes de asignarle un id al input y ademas en la etiqueta utilizar un for. Por ejemplo:
+
+<label for = "nombre"> </label>
+<input id = "nombre" > </input>
+
+Aqui estaria enlazado por lo que si seleccionas la etiqueta te direccional directo al input.
+
+
+
+
+

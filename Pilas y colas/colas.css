@@ -1,0 +1,22 @@
+.titulo{
+    font-size: 30px;
+    padding-left: 40%;
+}
+
+.formatoCola{
+    padding-top: 5%;
+    padding-left: 25%;
+}
+
+.caja{
+    background-color: grey;
+    width: 70px;
+    height: 70px;
+}
+
+.formatoBotones{
+    padding-top: 10%;
+    padding-left: 48%;
+    padding-right: 100px;
+}
+

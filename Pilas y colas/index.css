@@ -1,0 +1,44 @@
+.titulo{
+    font-size: 50px;
+    padding-left: 45%;
+}
+
+.subtitulo{
+    font-size: 30px;
+    padding-left: 40%;
+}
+
+#tituloDiferencias{
+    padding-left: 25%;
+}
+
+.texto{
+    font-size: 25px;
+}
+
+.texto_secundario{
+    font-size: 15px;
+}
+
+.tituloLista{
+    font-size: 25px;
+}
+
+.lista{
+    font-size: 15px;
+    padding-bottom: 4px;
+    padding-right: 4px;
+}
+
+.textoLista{
+    font-size: 15px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+.botonVisual{
+    font-size: 15px;
+}
+
+.tituloVisual{
+    font-size: 20px;
+}

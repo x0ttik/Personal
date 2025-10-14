@@ -99,59 +99,7 @@
 
 // FUNCIONES
 
-// Función para generar tallo y hoja para gráfico de barras
-void generar_tallo_hoja_barras(float *arreglo, int n, const char *filename, int modo_tallo, int modo_hoja) {
-    int conteo[100] = {0}; // hasta 100 tallos distintos (ajustable)
 
-    for (int i = 0; i < n; i++) {
-        int entero = (int)arreglo[i];
-        int tallo, hoja;
-
-        // Tallo
-        if (modo_tallo == 1)      // Decenas
-            tallo = entero / 10;
-        else                      // Unidades
-            tallo = entero % 10;
-
-        // Hoja (no se usa para el gráfico de barras, pero puedes usarlo si quieres mostrar hojas exactas)
-        if (modo_hoja == 1)       // Unidades
-            hoja = entero % 10;
-        else                      // Decimales
-            hoja = (int)(fabs(arreglo[i] * 10)) % 10;
-
-        conteo[tallo]++;
-    }
-
-    // Escribir archivo de datos para gnuplot
-    FILE *fp = fopen(filename, "w");
-    if (!fp) {
-        perror("No se pudo crear el archivo");
-        return;
-    }
-
-    for (int i = 0; i < 100; i++) {
-        if (conteo[i] > 0) {
-            fprintf(fp, "%d %d\n", i, conteo[i]);
-        }
-    }
-
-    fclose(fp);
-}
-
-void graficar_tallo_hoja_gnuplot() {
-    FILE *gnuplot = popen("gnuplot -persist", "w");
-    if (gnuplot) {
-        fprintf(gnuplot, "set title 'Grafico de Tallo y Hoja (Simulado)'\n");
-        fprintf(gnuplot, "set xlabel 'Frecuencia (Cantidad de hojas)'\n");
-        fprintf(gnuplot, "set ylabel 'Tallo'\n");
-        fprintf(gnuplot, "set style data histograms\n");
-        fprintf(gnuplot, "set style fill solid 1.0 border -1\n");
-        fprintf(gnuplot, "set boxwidth 0.9\n");
-        fprintf(gnuplot, "set ytics rotate by 0\n");
-        fprintf(gnuplot, "plot 'tallo_hoja.dat' using 2:xtic(1) title 'Hojas por Tallo' lc rgb 'orange'\n");
-        pclose(gnuplot);
-    }
-}
 
 void generar_puntos(float *arreglo, int n, const char *filename) {
     FILE *fp = fopen(filename, "w");
@@ -821,21 +769,22 @@ void calcularSxxSxy(float x[], float y[], float media_x, float media_y, int n, f
 }
 
 // Función principal de regresión lineal
-void regresionLineal(float x[], float y[], int n) {
-    float suma_x = funcionValoresManuales(x, n);
-    float suma_y = funcionValoresManuales(y, n);
+void calcularRegresion(float arreglo[], float y[], int n, float *a, float *b) {
+    float suma_x = 0, suma_y = 0;
+    float suma_xy = 0, suma_x2 = 0;
 
-    float media_x = funcionMedia(suma_x, n);
-    float media_y = funcionMedia(suma_y, n);
+    for (int i = 0; i < n; i++) {
+        suma_x += arreglo[i];   // aquí usas arreglo en vez de x
+        suma_y += y[i];
+        suma_xy += arreglo[i] * y[i];
+        suma_x2 += arreglo[i] * arreglo[i];
+    }
 
-    float Sxx, Sxy;
-    calcularSxxSxy(x, y, media_x, media_y, n, &Sxx, &Sxy);
+    float media_x = suma_x / n;
+    float media_y = suma_y / n;
 
-    float b = Sxy / Sxx;
-    float a = media_y - b * media_x;
-
-    printf("\n La ecuacion de la recta es: y = %.4f + %.4fx\n", a, b);
-    printf("\n");
+    *b = (suma_xy - n * media_x * media_y) / (suma_x2 - n * media_x * media_x);
+    *a = media_y - (*b) * media_x;
 }
 
 int main(){
@@ -908,31 +857,83 @@ int main(){
             scanf("%d", &opcion);
 
             switch (opcion){
-            case 1:
+            case 1:{
                 //int n = sizeof(arreglo) / sizeof(arreglo[0]);
 
-                printf("=== Configuración de Tallo y Hoja ===\n");
-                printf("Seleccione cómo desea calcular el tallo:\n");
-                printf("1. Decenas \n");
-                printf("2. Unidades \n");
-                printf("Opción: ");
-                scanf("%d", &modo_tallo);
+                // Preguntar al usuario por la configuración:
+                  // Asegúrate que 'n' tiene la cantidad correcta
+                if (n == 0) {
+                    printf("No hay datos cargados para graficar.\n");
+                break;
+                }
+                
+                int talloEleccion, hojaEleccion;
+                printf("\nElige tallo:\n");
+                printf("1. Decenas: \n");
+                printf("2. Unidades: .\n");
+                printf("Tu opción: ");
+                scanf("%d", &talloEleccion);
 
-                printf("\nSeleccione cómo desea calcular la hoja:\n");
-                printf("1. Unidades \n");
-                printf("2. Decimales \n");
-                printf("Opción: ");
-                scanf("%d", &modo_hoja);
+                printf("\nElige hoja:\n");
+                printf("1. Unidades (parte entera %% 10)\n");
+                printf("2. Primer decimal (parte decimal * 10) .\n");
+                printf("Tu opción: ");
+                scanf("%d", &hojaEleccion);
 
-                // Validar
-                if (modo_tallo < 1 || modo_tallo > 2 || modo_hoja < 1 || modo_hoja > 2) {
-                    printf("Opciones inválidas. Intenta nuevamente.\n");
-                    break;
+                // Calcular tallos y hojas
+                int tallos[MAX_NUMEROS];
+                int hojas[MAX_NUMEROS];
+
+                int minTallo = 1000000, maxTallo = -1000000;
+
+                for (int i = 0; i < n; i++) {
+                    int parteEntera = (int)floor(arreglo[i]);
+                    float parteDecimal = arreglo[i] - parteEntera;
+
+                    int tallo = 0;
+                    int hoja = 0;
+
+                    // Tallo
+                    if (talloEleccion == 1) {
+                        tallo = parteEntera / 10;
+                    } else {
+                        tallo = parteEntera;
+                    }
+
+                    // Hoja
+                    if (hojaEleccion == 1) {
+                        hoja = parteEntera % 10;
+                    } else {
+                        hoja = (int)floor(parteDecimal * 10 + 0.0001);
+                    }
+
+                    tallos[i] = tallo;
+                    hojas[i] = hoja;
+
+                    if (tallo < minTallo) minTallo = tallo;
+                    if (tallo > maxTallo) maxTallo = tallo;
                 }
 
-                generar_tallo_hoja_barras(arreglo, n, "tallo_hoja.dat", modo_tallo, modo_hoja);
-                graficar_tallo_hoja_gnuplot();
-                break;
+                // Imprimir diagrama de tallo y hoja
+                printf("\nDiagrama de tallo y hoja:\n");
+                for (int t = minTallo; t <= maxTallo; t++) {
+                    int tieneHojas = 0;
+                    for (int i = 0; i < n; i++) {
+                        if (tallos[i] == t) {
+                            if (!tieneHojas) {
+                                printf("%d |", t);
+                                tieneHojas = 1;
+                            }
+                            printf(" %d", hojas[i]);
+                        }
+                    }
+                    if (tieneHojas) printf("\n");
+                }
+
+                return 0;
+            }
+
+                
             
             case 2:
                 generar_puntos(arreglo, n, "puntos.dat");
@@ -950,10 +951,8 @@ int main(){
             }
             default:
                 break;
-            }
-
-            break;
-        
+            
+        }
         // Todos los estadisticos (MODA, MEDIA, MEDIANA, MEDIA RECORTADA, VARIANZA Y DESVIACION)
         case 2: 
         // Primero realizaremos una opcion al usuario para ver si quiere ingresar un archivo de texto o ingresar los valores manualmente
@@ -1249,9 +1248,59 @@ int main(){
                     arregloDos[i] = 0.0;
                 }
                 
-                regresionLineal(arreglo, arregloDos, n);
+                            
+                float a, b;
+                calcularRegresion(arreglo, arregloDos, n, &a, &b);
+
+                printf("Ecuacion de la recta: y = %.2f + %.2fx\n", a, b);
+
+                // Guardar datos en archivo
+                FILE *fdatos = fopen("datos.txt", "w");
+                if (!fdatos) {
+                    perror("Error abriendo datos.txt");
+                    return 1;
+                }
+                for (int i = 0; i < n; i++) {
+                    fprintf(fdatos, "%f %f\n", arreglo[i], arregloDos[i]);
+                }
+                fclose(fdatos);
+
+                // Crear archivo para línea ajustada (muchos puntos)
+                FILE *frecta = fopen("recta.txt", "w");
+                if (!frecta) {
+                    perror("Error abriendo recta.txt");
+                    return 1;
+                }
+                float xmin = arreglo[0], xmax = arreglo[0];
+                for (int i = 1; i < n; i++) {
+                    if (arreglo[i] < xmin) xmin = arreglo[i];
+                    if (arreglo[i] > xmax) xmax = arreglo[i];
+                }
+                int puntos = 100;
+                float paso = (xmax - xmin) / (puntos - 1);
+                for (int i = 0; i < puntos; i++) {
+                    float xi = xmin + i * paso;
+                    float yi = a + b * xi;
+                    fprintf(frecta, "%f %f\n", xi, yi);
+                }
+                fclose(frecta);
+
+                // Generar gráfico con gnuplot
+                FILE *gp = popen("gnuplot -persistent", "w");
+                if (!gp) {
+                    perror("Error al abrir gnuplot");
+                    return 1;
+                }
+                fprintf(gp,
+                    "set title 'Diagrama de dispersión y regresión lineal'\n"
+                    "set xlabel 'X'\n"
+                    "set ylabel 'Y'\n"
+                    "plot 'datos.txt' with points pointtype 7 pointsize 1.5 title 'Datos', "
+                    "'recta.txt' with lines linewidth 2 title 'Ajuste lineal'\n");
+                pclose(gp);
                 break;
             }
+
             default:
                 break;
             }
@@ -1260,6 +1309,7 @@ int main(){
         }
 
         }
+    
     } while (opcionUno != 9);
     
     return 0;    

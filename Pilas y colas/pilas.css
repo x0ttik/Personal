@@ -1,0 +1,32 @@
+.titulo{
+    font-size: 30px;
+    padding-left: 40%;
+}
+
+.formatoPila{
+    padding-top: 5%;
+    padding-left: 50%;
+}
+
+.caja{
+    background-color: grey;
+    width: 70px;
+    height: 70px;
+}
+
+.alineacionBotones{
+    padding-top: 5%;
+    padding-left: 48%;
+    margin-right: 50px;
+}
+
+.formatoBotones{
+    padding-left: 5%;
+}
+
+#eliminar{
+    margin-top: 15px;
+}
+.formatoBotonesInterior{
+    font-size: 10px;
+}

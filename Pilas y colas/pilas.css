@@ -6,12 +6,15 @@
 .formatoPila{
     padding-top: 5%;
     padding-left: 50%;
+    
 }
 
 .caja{
     background-color: grey;
     width: 70px;
     height: 70px;
+    border-color: white;
+    margin-bottom: 5px;
 }
 
 .alineacionBotones{
@@ -23,6 +26,14 @@
 .formatoBotones{
     padding-left: 5%;
 }
+
+.numero{
+    font-size: 25px;
+    padding: center;
+    text-align: center;
+    padding-top: 25%;
+    margin: 0;
+    }
 
 #eliminar{
     margin-top: 15px;

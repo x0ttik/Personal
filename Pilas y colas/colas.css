@@ -1,29 +1,98 @@
-.titulo{
-    font-size: 30px;
-    padding-left: 40%;
-}
-
-.formatoCola{
-    padding-top: 5%;
-    padding-left: 25%;
-}
-
-.caja{
-    background-color: grey;
-    width: 70px;
-    height: 70px;
-}
-
-.numero{
-    font-size: 25px;
-    padding: center;
-    text-align: center;
-    padding-top: 25%;
+/*  estilo generales  */
+.fondo {
+    background-color: beige;
     }
 
-.formatoBotones{
-    padding-top: 10%;
-    padding-left: 48%;
-    padding-right: 100px;
+.titulo {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
 }
 
+/*  contenedor de pila  */
+.formatoPila {
+    display: flex;            /* apila en fila */
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 40px;
+    min-height: 150px;
+}
+
+/*  cajas  */
+.caja {
+    background-color: #555;
+    width: 70px;
+    height: 70px;
+    border: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: white;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: aparecer 0.4s ease forwards;
+}
+
+/*  animacion al agregar  */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*  animacion al eliminar  */
+@keyframes desaparecer {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+/*  botones  */
+.alineacionBotones {
+    text-align: center;
+    margin-top: 20px;
+}
+input {
+    padding: 8px;
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+button:hover {
+    background-color: #45a049;
+}
+
+button#eliminar {
+    background-color: #d9534f;
+}
+
+button#eliminar:hover {
+    background-color: #c9302c;
+}

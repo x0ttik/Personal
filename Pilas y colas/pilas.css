@@ -1,6 +1,10 @@
+.fondo{
+    background-color: beige;
+}
+
 .titulo{
     font-size: 30px;
-    padding-left: 40%;
+    text-align: center;
 }
 
 .formatoPila{

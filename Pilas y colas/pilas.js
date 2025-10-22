@@ -3,7 +3,7 @@ const eliminar = document.querySelector("#eliminar")
 const formatoPila = document.querySelector(".formatoPila")
 
 // Contador para agregarle a la caja nueva
-let contador = 2
+let contador = 1
 
 agregar.addEventListener("click", () => {
     const nuevaCaja = document.createElement("div")
@@ -15,12 +15,15 @@ agregar.addEventListener("click", () => {
 
     nuevaCaja.appendChild(numero)
 
-    formatoPila.appendChild(nuevaCaja)
+    formatoPila.insertBefore(nuevaCaja, formatoPila.firstChild)
 
     contador = contador + 1
 
 })
 
 eliminar.addEventListener("click", () => {
-    
+    if (formatoPila.firstChild) {
+        formatoPila.removeChild(formatoPila.firstChild)
+        contador = contador - 1
+    }
 })

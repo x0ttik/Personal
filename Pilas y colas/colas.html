@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Colas</title>
     <link rel="stylesheet" href="colas.css">
-
 </head>
-<body>
-    <h1 class = "titulo"> Representacion visual de colas</h1>
+<body class="fondo">
+<h1 class="titulo">Representacion visual de colas</h1>
 
-    <div class = "formatoCola"> 
-        <div class = "caja"> <h4 class="numero"> 1 </h4> </div>
-    </div>
-    
-    <div class="formatoBotones"> 
-        <button type="submit" id="agregar"> Agregar </button>
-        <button type="submit" id="eliminar"> Eliminar </button>
-    </div>
+<div class="formatoPila" id="contenedor"></div>
+
+<div class="alineacionBotones formatoBotones">
+    <input type="number" id="valor" placeholder="Numero">
+    <button onclick="apilar()"> Agregar </button>
+    <button id="eliminar" onclick="desapilar()">Eliminar</button>
+</div>
+
+<script src="colas.js"> </script>
 
 </body>
 </html>
